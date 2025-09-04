@@ -20,18 +20,18 @@ const socials = [
 
 export const Footer = () => {
     return <footer className="flex md:flex-row flex-col w-full p-10 justify-between items-center bg-[#F8FAFC]">
-        <div className="flex flex-row gap-5">
-            <Link href="/" className="py-2 px-4 text-xl font-normal leading-[100%] text-primary cursor-pointer">
+        <div className="flex md:flex-row flex-col gap-5">
+            <Link href="/" className="py-2 px-4 text-xl max-md:text-center font-normal leading-[100%] text-primary cursor-pointer">
                 Home
             </Link>
-            <Link href="/" className="py-2 px-4 text-xl font-normal leading-[100%] text-primary cursor-pointer">
+            <Link href="/" className="py-2 px-4 text-xl max-md:text-center font-normal leading-[100%] text-primary cursor-pointer">
                 JustaName
             </Link>
-            <Link href="/" className="py-2 px-4 text-xl font-normal leading-[100%] text-primary cursor-pointer">
+            <Link href="/" className="py-2 px-4 text-xl max-md:text-center font-normal leading-[100%] text-primary cursor-pointer">
                 Prototype
             </Link>
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 max-md:py-5 items-center">
             {socials.map((social) => (
                 <Link
                     href={social.href}
