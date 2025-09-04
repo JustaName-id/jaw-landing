@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export const Hero = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-10 py-28 md:py-2.5 px-5 md:px-10 bg-white min-h-screen">
+        <div className="grid grid-cols-1 md:grid-cols-3 bg-[url('/sections/hero-bg.webp')] bg-cover bg-center justify-center items-center gap-10 py-28 md:py-2.5 px-5 md:px-10 bg-white min-h-screen">
             <Image src="/sections/hero.webp" alt="Changelly Partner" width={900} height={680} className="col-span-1 max-h-[680px] md:col-span-2 w-full md:order-2" />
             <div className="flex flex-col gap-6 md:order-1">
                 <div className="flex flex-col gap-2.5">
