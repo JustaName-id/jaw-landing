@@ -10,7 +10,7 @@ export const Navbar = () => {
                 <JawLogoIcon />
                 <JawTextLogoIcon />
             </Link>
-            <Link href="/" className="flex flex-row gap-2.5 cursor-pointer items-center">
+            <Link href="https://prototype.jaw.id/" target="_blank" className="flex flex-row gap-2.5 cursor-pointer items-center">
                 <Button variant={"default"}>
                     Prototype
                 </Button>
