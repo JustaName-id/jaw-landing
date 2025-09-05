@@ -1,6 +1,6 @@
 import { Card } from "@/components/card"
 import { CoreCard } from "@/components/coreCard"
-import { Blocks, EarthLock, Fingerprint, LockKeyhole, MonitorSmartphone } from "lucide-react"
+import { Blocks, Database, EarthLock, Fingerprint, MonitorSmartphone, NotebookPen, ShieldBan, UserCheck } from "lucide-react"
 
 export const CoreComponents = () => {
     return (
@@ -51,7 +51,7 @@ export const CoreComponents = () => {
                             <Card
                                 className="col-span-1"
                                 title="Enhanced security options "
-                                icon={<LockKeyhole color="black" />}
+                                icon={<ShieldBan color="black" />}
                                 description={"With planned passcode module support for additional protection layers"}
                             />
                             <div className="flex flex-col gap-2.5 p-5 bg-secondary rounded-[6px] col-span-1 md:col-span-2">
@@ -76,19 +76,19 @@ export const CoreComponents = () => {
                         <Card
                             className="col-span-1"
                             title="Flexible authentication"
-                            icon={<LockKeyhole color="black" />}
+                            icon={<UserCheck color="black" />}
                             description={"Supporting both traditional ECDSA addresses (20 bytes) and WebAuthn public keys (64 bytes)"}
                         />
                         <Card
                             className="col-span-1"
                             title="User-friendly transaction signing"
-                            icon={<LockKeyhole color="black" />}
+                            icon={<NotebookPen color="black" />}
                             description={"Maintaining readable typed data in wallet interfaces"}
                         />
                         <Card
                             className="col-span-1"
                             title="Collision-resistant storage"
-                            icon={<LockKeyhole color="black" />}
+                            icon={<Database color="black" />}
                             description={"Using Namespaced Storage (ERC-7201) for safe delegation usage"}
                         />
                     </div>
