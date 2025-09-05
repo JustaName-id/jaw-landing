@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 
 export const Hero = () => {
     return (
@@ -19,8 +20,8 @@ export const Hero = () => {
                     </p>
                 </div>
                 <div className="flex flex-row w-fit gap-2.5 items-center">
-                    <Button 
-                        variant={"outline"} 
+                    <Button
+                        variant={"outline"}
                         className="mr-auto"
                         onClick={() => {
                             const element = document.getElementById("under-the-hood");
@@ -31,13 +32,14 @@ export const Hero = () => {
                     >
                         Technical Docs
                     </Button>
-                    <Button 
-                        variant={"default"} 
-                        className="mr-auto"
-                        onClick={() => window.open("https://prototype.jaw.id/", "_blank")}
-                    >
-                        Explore Prototype
-                    </Button>
+                    <Link href="https://prototype.jaw.id/" target="_blank">
+                        <Button
+                            variant={"default"}
+                            className="mr-auto"
+                        >
+                            Explore Prototype
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>
