@@ -6,9 +6,9 @@ import Link from "next/link"
 
 export const Hero = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 bg-[url('/sections/hero-bg.webp')] bg-cover bg-center justify-center items-center gap-10 py-28 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]">
-            <Image src="/sections/hero.webp" alt="Changelly Partner" width={900} height={680} className="col-span-1 max-h-[680px] md:col-span-2 w-full md:order-2" />
-            <div className="flex flex-col gap-6 md:order-1">
+        <div className="grid grid-cols-1 md:grid-cols-10 bg-[url('/sections/hero-bg.webp')] bg-cover bg-center justify-center items-center gap-10 py-28 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]">
+            <Image src="/sections/hero.webp" alt="Changelly Partner" width={900} height={680} className="col-span-1 max-h-[680px] md:col-span-6 w-full md:order-2" />
+            <div className="flex flex-col gap-6 md:order-1 md:col-span-4">
                 <div className="flex flex-col gap-2.5">
                     <div className="flex flex-col text-5xl leading-[100%] text-black">
                         <h1 className="font-bold">Identity-Powered Infrastructure</h1>
