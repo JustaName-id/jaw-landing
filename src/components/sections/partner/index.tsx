@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const TrustedPartnetIntegrations = () => {
   return (
-    <div className="flex md:flex-row flex-col justify-center items-center gap-10 py-8 md:py-2.5 px-5 md:px-10 bg-white min-h-screen">
+    <div className="flex md:flex-row flex-col justify-center items-center gap-10 py-8 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]">
       <div className="flex flex-col gap-7">
         <div className="flex flex-col gap-2.5">
           <h2 className="text-5xl font-normal text-black leading-[100%]">

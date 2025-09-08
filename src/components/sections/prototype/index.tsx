@@ -11,7 +11,7 @@ import {
 
 export const Prototype = () => {
   return (
-    <div className="flex flex-col justify-center items-center max-md:pb-14 py-2.5 px-5 md:px-10 bg-white min-h-[100vh] md:min-h-[70vh]">
+    <div className="flex flex-col justify-center items-center py-28 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]">
       <div className="md:max-w-[60%] w-full flex flex-col gap-7">
         <div className="flex flex-col gap-2.5">
           <h2 className="text-5xl font-normal text-black leading-[100%]">

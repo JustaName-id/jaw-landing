@@ -4,7 +4,7 @@ import { Blocks, Database, EarthLock, Fingerprint, MonitorSmartphone, NotebookPe
 
 export const CoreComponents = () => {
     return (
-        <div className="flex flex-col w-full gap-8 py-10 md:py-2.5 px-5 md:px-10 bg-white ">
+        <div className="flex flex-col w-full gap-8 pt-1 pb-10 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]">
             <h2 className="text-5xl font-normal text-black leading-[100%]">Core Components</h2>
             <div className="flex flex-col gap-2.5">
                 <CoreCard
