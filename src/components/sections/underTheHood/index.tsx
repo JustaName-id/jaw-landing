@@ -1,11 +1,10 @@
-import { Card } from "@/components/card";
 import Image from "next/image";
 
 export const UnderTheHood = () => {
   return (
     <div
       id="under-the-hood"
-      className="flex md:flex-row flex-col items-center gap-10 pt-14 pb-4 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]"
+      className="flex md:flex-row flex-col max-md:pb-14 max-md:pt-14 items-center gap-10  md:py-2.5 px-5 md:px-10 bg-white min-h-[80vh]"
     >
       <Image
         src="/sections/under-the-hood.webp"

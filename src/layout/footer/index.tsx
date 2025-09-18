@@ -50,7 +50,6 @@ export const Footer = () => {
             href={social.href}
             target="_blank"
             className="text-zinc-900 hover:text-zinc-600 transition-colors"
-            onClick={() => {}}
           >
             <social.icon className="w-6 h-6" />
           </Link>
@@ -58,10 +57,10 @@ export const Footer = () => {
       </div>
       <div className="flex flex-col md:items-end items-center gap-2.5 ">
         <p className="text-sm text-black font-normal leading-[160%]">
-          Built by the Team at justalab
+          Built by the Team at JustaLab
         </p>
         <p className="text-xs text-black font-bold leading-[140%]">
-          JustaName, Copyright, 2025. All Rights Reserved.
+          JustaLab, Copyright, 2025. All Rights Reserved.
         </p>
       </div>
     </footer>
