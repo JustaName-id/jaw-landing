@@ -1,7 +1,9 @@
+import { ReactNode } from 'react';
+
 interface CoreCardProps {
     className?: string;
     title: string;
-    description: string;
+    description: string | ReactNode;
 }
 
 export const CoreCard: React.FC<React.PropsWithChildren & CoreCardProps> = ({ className, title, description, children }) => {

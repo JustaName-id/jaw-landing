@@ -1,5 +1,6 @@
 import { Card } from "@/components/card";
 import { CoreCard } from "@/components/coreCard";
+import Link from "next/link";
 import {
   Blocks,
   Database,
@@ -52,7 +53,19 @@ export const CoreComponents = () => {
           </CoreCard>
           <CoreCard
             title="Smart Account Foundation"
-            description="The wallet's foundation is JustanAccount.sol, seamlessly integrated with the toJustanAccount single-file extension. This powerful combination delivers:"
+            description={
+              <>
+                The wallet's foundation is{" "}
+                <Link
+                  href="https://github.com/JustaName-id/justanaccount"
+                  target="_blank"
+                  className="text-black hover:text-gray-700 underline"
+                >
+                  JustanAccount.sol
+                </Link>
+                , seamlessly integrated with the toJustanAccount single-file extension. This powerful combination delivers:
+              </>
+            }
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
               <Card
