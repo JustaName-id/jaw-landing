@@ -17,7 +17,7 @@ export const TrustedPartnetIntegrations = () => {
         <div className="w-full flex flex-col gap-2.5">
           <Card
             title="Powered by Etherspot"
-            upperTitle="4337 Infrastructure"
+            upperTitle="4337 Bundler and Paymaster Infrastructure"
             description="For bundled User Operations, enabling gasless transactions and enhanced UX"
           />
           <Card
