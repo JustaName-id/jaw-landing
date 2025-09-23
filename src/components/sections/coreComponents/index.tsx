@@ -21,7 +21,19 @@ export const CoreComponents = () => {
       <div className="flex flex-col gap-2.5">
         <CoreCard
           title="Identity-First Design"
-          description="Your identity is paramount. JAW places ENS at its core, powered by the JustaName infrastructure, ensuring your wallet is as unique and as recognizable as you are."
+          description={
+            <>
+              Your identity is paramount. JAW places ENS at its core, powered by the{" "}
+              <Link
+                href="https://www.justaname.id/"
+                target="_blank"
+                className="text-black hover:text-gray-700 underline"
+              >
+                JustaName
+              </Link>{" "}
+              infrastructure, ensuring your wallet is as unique and as recognizable as you are.
+            </>
+          }
         />
         <div className="flex flex-col md:flex-row gap-2.5 w-full">
           <CoreCard
@@ -63,7 +75,8 @@ export const CoreComponents = () => {
                 >
                   JustanAccount.sol
                 </Link>
-                , seamlessly integrated with the toJustanAccount single-file extension. This powerful combination delivers:
+                , seamlessly integrated with the toJustanAccount.ts single-file
+                extension. This powerful combination delivers:
               </>
             }
           >

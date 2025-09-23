@@ -1,5 +1,6 @@
 import { Card } from "@/components/card";
 import Image from "next/image";
+import Link from "next/link";
 
 export const TrustedPartnetIntegrations = () => {
   return (
@@ -16,20 +17,41 @@ export const TrustedPartnetIntegrations = () => {
         </div>
         <div className="w-full flex flex-col gap-2.5">
           <Card
-            title="Powered by Etherspot"
+            title={
+              <>
+                Powered by{" "}
+                <Link
+                  href="https://etherspot.io/"
+                  target="_blank"
+                  className="text-black hover:text-gray-700 underline"
+                >
+                  Etherspot
+                </Link>
+              </>
+            }
             upperTitle="4337 Bundler and Paymaster Infrastructure"
             description="For bundled User Operations, enabling gasless transactions and enhanced UX"
           />
           <Card
-            title="Changelly"
-            upperTitle="DeFi Gateway"
+            title={
+              <>
+                <Link
+                  href="https://across.to/"
+                  target="_blank"
+                  className="text-black hover:text-gray-700 underline"
+                >
+                  Across Protocol
+                </Link>
+              </>
+            }
+            upperTitle="Interoperability Powered By Intents"
             description="Powers instant swap and bridge capabilities across chains"
           />
         </div>
       </div>
       <Image
         src="/sections/partner.webp"
-        alt="Changelly Partner"
+        alt="Across Partner"
         width={900}
         height={880}
         className="md:max-w-[50%] w-full aspect-[1.1]"
