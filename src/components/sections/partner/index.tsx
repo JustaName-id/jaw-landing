@@ -47,6 +47,21 @@ export const TrustedPartnetIntegrations = () => {
             upperTitle="Interoperability Powered By Intents"
             description="Powers instant swap and bridge capabilities across chains"
           />
+          <Card
+            title={
+              <>
+                <Link
+                  href="https://relay.link/"
+                  target="_blank"
+                  className="text-black hover:text-gray-700 underline"
+                >
+                  Relay
+                </Link>
+              </>
+            }
+            upperTitle="Liquidity Aggregation and Smart Routing"
+            description="Optimized token swaps through intelligent routing and deep liquidity aggregation"
+          />
         </div>
       </div>
       <Image
