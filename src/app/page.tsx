@@ -1,18 +1,29 @@
-import { CoreComponents, Hero, Prototype, UnderTheHood, Vision } from "@/components";
-import { TrustedPartnetIntegrations } from "@/components/";
+import {
+  Hero,
+  Pillars,
+  BuiltFor,
+  Features,
+  BentoGrid,
+  CodeShowcase,
+  Dashboard,
+  Pricing,
+  FAQ,
+  Contact
+} from '@/components/sections';
 
 export default function Home() {
   return (
-    <div className="flex pt-[10vh] flex-col bg-background w-full h-full">
-      <p className="sr-only">
-        Justalab landing page. Learn about our vision, explore the technology under the hood, discover core components, view trusted partners and integrations, and see our prototype in action.
-      </p>
+    <div className="min-h-screen bg-white">
       <Hero />
-      <Vision />
-      <UnderTheHood />
-      <CoreComponents />
-      <TrustedPartnetIntegrations />
-      <Prototype />
+      <Pillars />
+      <BuiltFor />
+      <Features />
+      <BentoGrid />
+      <CodeShowcase />
+      <Dashboard />
+      <Pricing />
+      <FAQ />
+      <Contact />
     </div>
   );
 }

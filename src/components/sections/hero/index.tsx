@@ -1,51 +1,105 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export const Hero = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-10 bg-[url('/sections/hero-bg.webp')] bg-cover bg-center justify-center items-center gap-10 py-28 md:py-2.5 px-5 md:px-10 bg-white min-h-[100vh]">
-      <Image
-        src="/sections/hero.webp"
-        alt="Across Partner"
-        width={900}
-        height={680}
-        className="col-span-1 max-h-[680px] md:col-span-6 w-full md:order-2"
-      />
-      <div className="flex flex-col gap-6 md:order-1 md:col-span-4">
-        <div className="flex flex-col gap-2.5">
-          <div className="flex flex-col text-5xl leading-[100%] text-black">
-            <h1 className="font-bold">Identity-Powered Infrastructure</h1>
-            <h1 className="font-normal">for the Smart Wallet Era</h1>
-          </div>
-          <p className="text-base font-normal text-black leading-[150%]">
-            Two-line integration. Permanent identity. Pure smart contracts.
+    <section className="mt-[108px] pt-8 md:pt-20  pb-16 px-4 md:px-6 bg-white relative overflow-hidden md:min-h-[calc(100vh-108px+50px)]">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <img
+          src="/assets/hero-bg.png"
+          alt="hero-bg"
+          className="absolute w-full h-full object-cover opacity-[0.03]"
+        />
+      </div>
+
+      <div className="max-w-[1100px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8 relative">
+        {/* Left Content */}
+        <div className="flex-1 md:mt-8 lg:mt-12">
+          <h1 className="text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-[36px] md:leading-[44px] lg:leading-[52px] mb-6 font-['Space_Grotesk',sans-serif] text-[#0a0a0a]">
+            Access Onchain Capabilities
             <br />
-            The complete stack, unified at last.
+            Without Carrying Its{" "}
+            <span
+              className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #135bec 0%, #135bec 100%)",
+              }}
+            >
+              Complexity
+            </span>
+          </h1>
+          <p className="text-gray-500 text-lg leading-7 mb-8 max-w-xl">
+            Identity-centric infrastructure for the smart account era, designed
+            to absorb wallet and account overhead so products can focus on
+            users, not systems.
           </p>
-        </div>
-        <div className="flex flex-row w-fit gap-2.5 items-center">
-          <Button
-            variant={"outline"}
-            className="mr-auto"
-            onClick={() => {
-              const element = document.getElementById("under-the-hood");
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-          >
-            Technical Docs
-          </Button>
-          <Link href="https://prototype.jaw.id/" target="_blank">
-            <Button variant={"default"} className="mr-auto">
-              Explore Prototype
+
+          {/* Checklist */}
+          <ul className="space-y-3 mb-8">
+            <li className="flex items-center gap-3">
+              <Check className="w-5 h-5 text-gray-900" strokeWidth={2} />
+              <span className="text-gray-900 font-medium">
+                Invisible web3 infrastructure
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <Check className="w-5 h-5 text-gray-900" strokeWidth={2} />
+              <span className="text-gray-900 font-medium">
+                Onchain agent & automation
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <Check className="w-5 h-5 text-gray-900" strokeWidth={2} />
+              <span className="text-gray-900 font-medium">
+                Customizable solutions
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <Check className="w-5 h-5 text-gray-900" strokeWidth={2} />
+              <span className="text-gray-900 font-medium">
+                No onboarding friction
+              </span>
+            </li>
+          </ul>
+
+          {/* CTAs */}
+          <div className="flex items-center gap-3">
+            <Button
+              asChild
+              className="bg-[#171717] text-white hover:bg-gray-800 h-9"
+            >
+              <a href="https://dashboard.jaw.id">Get Started</a>
             </Button>
-          </Link>
+            <Button
+              variant="ghost"
+              asChild
+              className="text-gray-900 hover:text-gray-700 hover:bg-transparent"
+            >
+              <a href="#contact" className="flex items-center gap-2">
+                Contact Us
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Right Illustration - positioned to the right */}
+      <div className="hidden lg:block absolute right-[10%] top-1/2 -translate-y-1/2 w-[516px] h-[516px]">
+        <Image
+          src="/assets/hero-illustration.png"
+          alt="JAW.ID Platform Illustration"
+          width={516}
+          height={516}
+          priority={true}
+          className="w-full h-full object-contain"
+        />
+      </div>
+    </section>
   );
 };
