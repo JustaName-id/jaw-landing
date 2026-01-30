@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { contactFormSchema, type ContactFormData } from "@/lib/validations/contact";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -15,44 +17,53 @@ import {
 } from "@/components/ui/select";
 import { Send, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
-
-interface FormData {
-  name: string;
-  email: string;
-  role: string;
-  company: string;
-  message: string;
-  privacy: boolean;
-}
+import { cn } from "@/lib/utils";
 
 export const Contact = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    role: "",
-    company: "",
-    message: "",
-    privacy: false,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+    setValue,
+    watch,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      company: "",
+      role: undefined,
+      message: "",
+    },
   });
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-  const handleRoleChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, role: value }));
-  };
+      const result = await response.json();
 
-  const handlePrivacyChange = (checked: boolean) => {
-    setFormData((prev) => ({ ...prev, privacy: checked }));
-  };
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit form");
+      }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
+      toast.success("Message sent successfully!", {
+        description: "We'll get back to you as soon as possible.",
+      });
+      reset();
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast.error("Failed to send message", {
+        description: error instanceof Error ? error.message : "Please try again later.",
+      });
+    }
   };
 
   return (
@@ -112,7 +123,7 @@ export const Contact = () => {
         {/* Right Section - Form */}
         <div className="bg-white flex items-center justify-center px-6 md:px-12 lg:px-16 py-12 md:py-16">
           <div className="w-full max-w-md">
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
                 <Label
                   htmlFor="name"
@@ -122,14 +133,17 @@ export const Contact = () => {
                 </Label>
                 <Input
                   id="name"
-                  name="name"
                   type="text"
                   placeholder="Name"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto"
+                  {...register("name")}
+                  className={cn(
+                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto",
+                    errors.name && "border-red-500"
+                  )}
                 />
+                {errors.name && (
+                  <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+                )}
               </div>
 
               <div>
@@ -141,14 +155,17 @@ export const Contact = () => {
                 </Label>
                 <Input
                   id="email"
-                  name="email"
                   type="email"
                   placeholder="Email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto"
+                  {...register("email")}
+                  className={cn(
+                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto",
+                    errors.email && "border-red-500"
+                  )}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+                )}
               </div>
 
               {/* Company + I am a row */}
@@ -162,14 +179,17 @@ export const Contact = () => {
                   </Label>
                   <Input
                     id="company"
-                    name="company"
                     type="text"
                     placeholder="Company name"
-                    required
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    className="w-full px-4 !h-[50px] bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                    {...register("company")}
+                    className={cn(
+                      "w-full px-4 !h-[50px] bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent",
+                      errors.company && "border-red-500"
+                    )}
                   />
+                  {errors.company && (
+                    <p className="text-sm text-red-500 mt-1">{errors.company.message}</p>
+                  )}
                 </div>
 
                 <div>
@@ -180,11 +200,13 @@ export const Contact = () => {
                     I am a <span className="text-red-500">*</span>
                   </Label>
                   <Select
-                    value={formData.role}
-                    onValueChange={handleRoleChange}
-                    required
+                    value={watch("role") || ""}
+                    onValueChange={(value) => setValue("role", value as "developer" | "business" | "other")}
                   >
-                    <SelectTrigger className="w-full px-4 !h-[50px] bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-black">
+                    <SelectTrigger className={cn(
+                      "w-full px-4 !h-[50px] bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-black",
+                      errors.role && "border-red-500"
+                    )}>
                       <SelectValue placeholder="Select your Role" />
                     </SelectTrigger>
                     <SelectContent className="bg-white border border-gray-300 shadow-lg">
@@ -208,6 +230,9 @@ export const Contact = () => {
                       </SelectItem>
                     </SelectContent>
                   </Select>
+                  {errors.role && (
+                    <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
+                  )}
                 </div>
               </div>
 
@@ -220,20 +245,28 @@ export const Contact = () => {
                 </Label>
                 <Textarea
                   id="message"
-                  name="message"
                   placeholder="Type your message"
                   rows={4}
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent resize-none"
+                  {...register("message")}
+                  className={cn(
+                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent resize-none",
+                    errors.message && "border-red-500"
+                  )}
                 />
+                {errors.message && (
+                  <p className="text-sm text-red-500 mt-1">{errors.message.message}</p>
+                )}
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-black text-white hover:bg-gray-800 py-3 h-auto rounded-lg font-medium"
+                disabled={isSubmitting}
+                className={cn(
+                  "w-full bg-black text-white hover:bg-gray-800 py-3 h-auto rounded-lg font-medium",
+                  isSubmitting && "opacity-50 cursor-not-allowed"
+                )}
               >
-                Send message
+                {isSubmitting ? "Sending..." : "Send message"}
               </Button>
             </form>
           </div>

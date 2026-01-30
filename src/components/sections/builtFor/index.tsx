@@ -112,7 +112,7 @@ export const BuiltFor = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="neobanks" className="w-full">
-          <TabsList className="w-full h-auto bg-white/[0.05] rounded-lg p-2 px-0 border border-white/10 mb-4 flex overflow-x-auto gap-2 [-webkit-overflow-scrolling:touch] scrollbar-hide">
+          <TabsList className="w-full h-auto bg-white/[0.05] md:overflow-hidden rounded-lg p-2 px-0 md:p-0 border border-white/10 mb-4 flex overflow-x-auto gap-2 [-webkit-overflow-scrolling:touch] scrollbar-hide">
             {tabs.map((tab) => {
               const Icon = tab.icon
               return (
