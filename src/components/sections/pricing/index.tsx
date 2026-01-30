@@ -97,7 +97,8 @@ export const Pricing = () => {
                     asChild
                     className="w-full bg-black text-white hover:bg-gray-800 py-2.5 md:py-3 h-auto"
                   >
-                    <a href={plan.href}>{plan.buttonText}</a>
+                    <a href={plan.href} {...(plan.buttonText === "Get Started" && { target: "_blank", rel: "noopener noreferrer" })}
+                    >{plan.buttonText}</a>
                   </Button>
                 </CardContent>
               </Card>

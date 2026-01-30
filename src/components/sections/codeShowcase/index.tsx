@@ -179,7 +179,8 @@ export const CodeShowcase = () => {
             asChild
             className="bg-[#171717] text-white hover:bg-gray-800 px-5 md:px-6 py-2.5 md:py-3 h-auto"
           >
-            <a href="https://docs.jaw.id" className="inline-flex items-center gap-2">
+            <a href="https://docs.jaw.id"                             target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-2">
               View Full Documentation
               <ArrowRight className="w-4 h-4" />
             </a>

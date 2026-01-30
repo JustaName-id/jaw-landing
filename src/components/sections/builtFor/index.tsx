@@ -53,7 +53,7 @@ const tabs: Tab[] = [
     id: "ai-agents",
     label: "AI Agents",
     icon: Bot,
-    title: "AI Agent Platforms",
+    title: "AI Agents",
     description:
       "Let agents act on users' behalf within hard limits. Define accessible assets, spending caps, and permission expiration for controlled automation.",
     useCases: [
@@ -125,17 +125,17 @@ export const BuiltFor = () => {
           onValueChange={setActiveTab}
           className="w-full"
         >
-          <TabsList className="w-full h-auto bg-white/[0.05] md:overflow-hidden rounded-lg p-2 px-0 md:p-0 border border-white/10 mb-4 flex overflow-x-auto gap-2 [-webkit-overflow-scrolling:touch] scrollbar-hide">
+          <TabsList className="w-full h-auto bg-white/[0.05] rounded-lg p-3 border border-white/10 mb-6 grid grid-cols-3 md:inline-flex md:flex-row w-full gap-2">
             {tabs.map((tab) => {
               const Icon = tab.icon
               return (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="flex-shrink-0 cursor-pointer h-9 data-[state=active]:bg-white/10 data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-white/20 text-gray-500 hover:text-gray-300 px-4 rounded-md transition-all text-sm whitespace-nowrap flex items-center gap-2"
+                  className="cursor-pointer h-auto max-md:min-h-[60px] md:h-9 data-[state=active]:bg-white/10 data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-white/20 text-gray-500 hover:text-gray-300 px-2 md:px-4 py-2 rounded-md transition-all text-[11px] md:text-sm flex flex-col md:flex-row items-center justify-center gap-1.5 md:gap-2"
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
-                  <span>{tab.label}</span>
+                  <Icon className="w-4 h-4 md:w-4 md:h-4 flex-shrink-0" />
+                  <span className="font-medium text-center leading-tight md:whitespace-nowrap">{tab.label}</span>
                 </TabsTrigger>
               )
             })}

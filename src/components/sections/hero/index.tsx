@@ -14,7 +14,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="mt-[108px] pt-8 md:pt-20  pb-16 px-4 md:px-6 bg-white relative overflow-hidden md:min-h-[calc(100vh-108px+50px)]">
+    <section className=" pt-40 md:pt-20  pb-16 flex justify-center px-4 md:px-6 bg-white relative overflow-hidden min-h-[calc(100vh+50px)] md:min-h-[calc(100vh+50px)]">
       {/* Background Pattern */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
@@ -82,7 +82,8 @@ export const Hero = () => {
               asChild
               className="bg-[#171717] text-white hover:bg-gray-800 h-9"
             >
-              <a href="https://dashboard.jaw.id">Get Started</a>
+              <a href="https://dashboard.jaw.id"                             target="_blank" rel="noopener noreferrer"
+              >Get Started</a>
             </Button>
             <Button
               variant="ghost"

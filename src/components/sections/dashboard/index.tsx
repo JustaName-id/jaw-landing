@@ -75,7 +75,8 @@ export const Dashboard = () => {
                 asChild
                 className="bg-white text-[#171717] hover:bg-gray-100 h-9"
               >
-                <a href="https://dashboard.jaw.id">
+                <a href="https://dashboard.jaw.id"                             target="_blank" rel="noopener noreferrer"
+                >
                   Get started
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
