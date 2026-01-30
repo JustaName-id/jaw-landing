@@ -140,7 +140,7 @@ export const Contact = () => {
         <div className="bg-white flex items-center justify-center px-6 md:px-12 lg:px-16 py-12 md:py-16">
           <div className="w-full max-w-md">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              <div ref={(el) => (errorRefs.current.name = el)}>
+              <div ref={(el) => { errorRefs.current.name = el; }}>
                 <Label
                   htmlFor="name"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -162,7 +162,7 @@ export const Contact = () => {
                 )}
               </div>
 
-              <div ref={(el) => (errorRefs.current.email = el)}>
+              <div ref={(el) => { errorRefs.current.email = el; }}>
                 <Label
                   htmlFor="email"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -186,7 +186,7 @@ export const Contact = () => {
 
               {/* Company + I am a row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div ref={(el) => (errorRefs.current.company = el)}>
+                <div ref={(el) => { errorRefs.current.company = el; }}>
                   <Label
                     htmlFor="company"
                     className="text-sm font-medium text-gray-900 mb-2 block"
@@ -208,7 +208,7 @@ export const Contact = () => {
                   )}
                 </div>
 
-                <div ref={(el) => (errorRefs.current.role = el)}>
+                <div ref={(el) => { errorRefs.current.role = el; }}>
                   <Label
                     htmlFor="role"
                     className="text-sm font-medium text-gray-900 mb-2 block"
@@ -252,7 +252,7 @@ export const Contact = () => {
                 </div>
               </div>
 
-              <div ref={(el) => (errorRefs.current.message = el)}>
+              <div ref={(el) => { errorRefs.current.message = el; }}>
                 <Label
                   htmlFor="message"
                   className="text-sm font-medium text-gray-900 mb-2 block"
