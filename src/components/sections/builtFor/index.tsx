@@ -132,7 +132,7 @@ export const BuiltFor = () => {
             const Icon = tab.icon
             return (
               <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                <div className="bg-white/[0.03] border border-white/10 rounded-xl p-5 md:p-8">
+                <div className="bg-white/[0.03] border border-white/10 rounded-xl p-5 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-400">
                   <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-lg flex items-center justify-center text-black flex-shrink-0">
                       <Icon className="w-5 h-5 md:w-6 md:h-6" />
@@ -142,11 +142,11 @@ export const BuiltFor = () => {
                     </h3>
                   </div>
 
-                  <p className="text-gray-400 mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
+                  <p className="text-gray-400 mb-6 md:mb-8 leading-relaxed text-sm md:text-base animate-in fade-in duration-500 delay-100">
                     {tab.description}
                   </p>
 
-                  <div>
+                  <div className="animate-in fade-in duration-500 delay-200">
                     <p className="font-semibold text-sm mb-3 md:mb-4 text-white">
                       Example Use Cases:
                     </p>
@@ -154,7 +154,7 @@ export const BuiltFor = () => {
                       {tab.useCases.map((useCase, index) => (
                         <div
                           key={index}
-                          className="flex items-start gap-3 text-gray-400 text-sm"
+                          className={`flex items-start gap-3 text-gray-400 text-sm animate-in fade-in duration-400 delay-${(index + 3) * 100}`}
                         >
                           <span className="w-2 h-2 bg-white rounded-full flex-shrink-0 mt-1.5" />
                           {useCase}

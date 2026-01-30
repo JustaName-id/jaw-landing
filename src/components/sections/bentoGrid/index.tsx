@@ -1,5 +1,9 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Brain, Fingerprint, BadgeDollarSign, Dna } from "lucide-react";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { cardHoverMinimal } from "@/lib/animations";
 
 // Custom CalendarClock icon
 const CalendarClock = ({ className, strokeWidth = 2 }: { className?: string; strokeWidth?: number }) => (
@@ -149,27 +153,31 @@ export const BentoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {features.map((feature, index) => {
             const Icon = feature.icon;
+            // Calculate row for stagger effect (3 cards per row on lg screens)
+            const rowDelay = Math.floor(index / 3) * 100;
+
             return (
-              <Card
-                key={index}
-                className="bg-white border-gray-200 rounded-xl hover:shadow-md transition-shadow py-0 gap-0"
-              >
-                <CardContent className="p-4 md:p-5">
-                  <div className="flex gap-3 md:gap-4">
-                    <div className="text-gray-700 shrink-0">
-                      <Icon className="w-7 h-7" strokeWidth={1.5} />
+              <ScrollReveal key={index} delay={rowDelay}>
+                <Card
+                  className={`bg-white border-gray-200 rounded-xl hover:shadow-md transition-all duration-300 py-0 gap-0 ${cardHoverMinimal}`}
+                >
+                  <CardContent className="p-4 md:p-5">
+                    <div className="flex gap-3 md:gap-4">
+                      <div className="text-gray-700 shrink-0">
+                        <Icon className="w-7 h-7" strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-1 text-sm md:text-base">
+                          {feature.title}
+                        </h3>
+                        <p className="text-gray-600 text-xs md:text-sm">
+                          {feature.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold mb-1 text-sm md:text-base">
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-600 text-xs md:text-sm">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
             );
           })}
         </div>

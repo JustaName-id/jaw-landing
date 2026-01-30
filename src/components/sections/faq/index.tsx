@@ -1,9 +1,12 @@
+"use client";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 interface FAQItem {
   question: string;
@@ -71,18 +74,19 @@ export const FAQ = () => {
         {/* FAQ Accordion */}
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border-b border-white/10"
-            >
-              <AccordionTrigger className="text-left cursor-pointer font-medium text-base md:text-lg py-4 md:py-5 hover:no-underline text-white hover:text-gray-300 [&[data-state=open]]:text-[#135bec]">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-gray-400 text-sm md:text-base leading-relaxed pb-4 md:pb-5">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+            <ScrollReveal key={index} delay={index * 80} threshold={0.05}>
+              <AccordionItem
+                value={`item-${index}`}
+                className="border-b border-white/10 transition-all duration-200"
+              >
+                <AccordionTrigger className="text-left cursor-pointer font-medium text-base md:text-lg py-4 md:py-5 hover:no-underline text-white hover:text-gray-300 [&[data-state=open]]:text-[#135bec] transition-colors duration-200">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-400 text-sm md:text-base leading-relaxed pb-4 md:pb-5">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </ScrollReveal>
           ))}
         </Accordion>
 

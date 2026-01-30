@@ -1,4 +1,8 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { scrollFadeIn, cardHover } from "@/lib/animations";
 
 interface Feature {
   title: string;
@@ -223,27 +227,28 @@ export const Features = () => {
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="bg-white border-gray-200 rounded-xl shadow-sm min-h-[300px] md:min-h-[360px] py-5 md:py-6 gap-0"
-            >
-              <CardContent className="px-5 md:px-6 flex flex-col h-full">
-                {/* Graphic */}
-                <div className="h-[120px] md:h-[140px] flex items-center justify-center">
-                  {feature.graphic}
-                </div>
+            <ScrollReveal key={index} delay={index * 100}>
+              <Card
+                className={`bg-white border-gray-200 rounded-xl shadow-sm min-h-[300px] md:min-h-[360px] py-5 md:py-6 gap-0 ${cardHover}`}
+              >
+                <CardContent className="px-5 md:px-6 flex flex-col h-full">
+                  {/* Graphic */}
+                  <div className="h-[120px] md:h-[140px] flex items-center justify-center animate-in fade-in duration-600 delay-100">
+                    {feature.graphic}
+                  </div>
 
-                {/* Text content - centered */}
-                <div className="text-center mt-4 flex-1 flex flex-col">
-                  <h3 className="text-lg md:text-xl font-bold mb-2 font-['Space_Grotesk',sans-serif]">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-900 opacity-90 text-sm md:text-base leading-6">
-                    {feature.description}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                  {/* Text content - centered */}
+                  <div className="text-center mt-4 flex-1 flex flex-col">
+                    <h3 className="text-lg md:text-xl font-bold mb-2 font-['Space_Grotesk',sans-serif]">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-900 opacity-90 text-sm md:text-base leading-6">
+                      {feature.description}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
       </div>

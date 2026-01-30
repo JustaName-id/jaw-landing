@@ -18,8 +18,11 @@ import {
 import { Send, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 
 export const Contact = () => {
+  const errorRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
   const {
     register,
     handleSubmit,
@@ -37,6 +40,19 @@ export const Contact = () => {
       message: "",
     },
   });
+
+  // Add shake animation to error fields
+  useEffect(() => {
+    Object.keys(errors).forEach((key) => {
+      const element = errorRefs.current[key];
+      if (element) {
+        element.classList.remove("animate-shake");
+        // Trigger reflow to restart animation
+        void element.offsetWidth;
+        element.classList.add("animate-shake");
+      }
+    });
+  }, [errors]);
 
   const onSubmit = async (data: ContactFormData) => {
     try {
@@ -124,7 +140,7 @@ export const Contact = () => {
         <div className="bg-white flex items-center justify-center px-6 md:px-12 lg:px-16 py-12 md:py-16">
           <div className="w-full max-w-md">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              <div>
+              <div ref={(el) => (errorRefs.current.name = el)}>
                 <Label
                   htmlFor="name"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -137,16 +153,16 @@ export const Contact = () => {
                   placeholder="Name"
                   {...register("name")}
                   className={cn(
-                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto",
+                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto transition-all duration-200",
                     errors.name && "border-red-500"
                   )}
                 />
                 {errors.name && (
-                  <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.name.message}</p>
                 )}
               </div>
 
-              <div>
+              <div ref={(el) => (errorRefs.current.email = el)}>
                 <Label
                   htmlFor="email"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -159,18 +175,18 @@ export const Contact = () => {
                   placeholder="Email"
                   {...register("email")}
                   className={cn(
-                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto",
+                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto transition-all duration-200",
                     errors.email && "border-red-500"
                   )}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.email.message}</p>
                 )}
               </div>
 
               {/* Company + I am a row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+                <div ref={(el) => (errorRefs.current.company = el)}>
                   <Label
                     htmlFor="company"
                     className="text-sm font-medium text-gray-900 mb-2 block"
@@ -183,16 +199,16 @@ export const Contact = () => {
                     placeholder="Company name"
                     {...register("company")}
                     className={cn(
-                      "w-full px-4 !h-[50px] bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent",
+                      "w-full px-4 !h-[50px] bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200",
                       errors.company && "border-red-500"
                     )}
                   />
                   {errors.company && (
-                    <p className="text-sm text-red-500 mt-1">{errors.company.message}</p>
+                    <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.company.message}</p>
                   )}
                 </div>
 
-                <div>
+                <div ref={(el) => (errorRefs.current.role = el)}>
                   <Label
                     htmlFor="role"
                     className="text-sm font-medium text-gray-900 mb-2 block"
@@ -204,7 +220,7 @@ export const Contact = () => {
                     onValueChange={(value) => setValue("role", value as "developer" | "business" | "other")}
                   >
                     <SelectTrigger className={cn(
-                      "w-full px-4 !h-[50px] bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-black",
+                      "w-full px-4 !h-[50px] bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all duration-200",
                       errors.role && "border-red-500"
                     )}>
                       <SelectValue placeholder="Select your Role" />
@@ -231,12 +247,12 @@ export const Contact = () => {
                     </SelectContent>
                   </Select>
                   {errors.role && (
-                    <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
+                    <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.role.message}</p>
                   )}
                 </div>
               </div>
 
-              <div>
+              <div ref={(el) => (errorRefs.current.message = el)}>
                 <Label
                   htmlFor="message"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -249,12 +265,12 @@ export const Contact = () => {
                   rows={4}
                   {...register("message")}
                   className={cn(
-                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent resize-none",
+                    "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent resize-none transition-all duration-200",
                     errors.message && "border-red-500"
                   )}
                 />
                 {errors.message && (
-                  <p className="text-sm text-red-500 mt-1">{errors.message.message}</p>
+                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.message.message}</p>
                 )}
               </div>
 
@@ -263,10 +279,17 @@ export const Contact = () => {
                 disabled={isSubmitting}
                 className={cn(
                   "w-full bg-black text-white hover:bg-gray-800 py-3 h-auto rounded-lg font-medium",
-                  isSubmitting && "opacity-50 cursor-not-allowed"
+                  isSubmitting && "opacity-50 cursor-not-allowed animate-pulse"
                 )}
               >
-                {isSubmitting ? "Sending..." : "Send message"}
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2">
+                    <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </span>
+                ) : (
+                  "Send message"
+                )}
               </Button>
             </form>
           </div>

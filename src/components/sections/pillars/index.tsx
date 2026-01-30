@@ -1,3 +1,8 @@
+"use client";
+
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { scrollFadeIn, staggerDelays } from "@/lib/animations";
+
 const pillars = [
   {
     number: "1",
@@ -34,24 +39,29 @@ export function Pillars() {
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 relative z-10">
           {pillars.map((pillar, index) => (
-            <div
+            <ScrollReveal
               key={index}
-              className="border border-[#e5e5e5] rounded-xl shadow-sm"
-              style={{ backgroundColor: "#ffffff" }}
+              delay={(index + 1) * 100}
+              className={`${scrollFadeIn} hover:scale-[1.02] transition-all duration-300`}
             >
-              <div className="px-6 py-6 h-full flex flex-col">
-                {/* Title - centered */}
-                <div className="text-center mb-2">
-                  <span className="text-[28px] font-semibold text-[#0a0a0a] font-['Space_Grotesk',sans-serif]">
-                    {pillar.title}
-                  </span>
+              <div
+                className="border border-[#e5e5e5] rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300"
+                style={{ backgroundColor: "#ffffff" }}
+              >
+                <div className="px-6 py-6 h-full flex flex-col">
+                  {/* Title - centered */}
+                  <div className="text-center mb-2">
+                    <span className="text-[28px] font-semibold text-[#0a0a0a] font-['Space_Grotesk',sans-serif]">
+                      {pillar.title}
+                    </span>
+                  </div>
+                  {/* Description - centered */}
+                  <p className="text-[#0a0a0a] opacity-90 text-base leading-6 text-center">
+                    {pillar.description}
+                  </p>
                 </div>
-                {/* Description - centered */}
-                <p className="text-[#0a0a0a] opacity-90 text-base leading-6 text-center">
-                  {pillar.description}
-                </p>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

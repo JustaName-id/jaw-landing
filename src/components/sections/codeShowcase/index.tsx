@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { scrollFadeIn } from "@/lib/animations";
 
 const codeContent = `import { jaw } from '@jaw-id/wagmi'
 import { createConfig, http } from 'wagmi'
@@ -64,32 +66,35 @@ export const CodeShowcase = () => {
         </div>
 
         {/* Code Editor */}
-        <div className="bg-[#1e1e2e] rounded-xl overflow-hidden shadow-2xl">
-          {/* Editor Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-[#181825] border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#f38ba8]" />
-              <div className="w-3 h-3 rounded-full bg-[#f9e2af]" />
-              <div className="w-3 h-3 rounded-full bg-[#a6e3a1]" />
+        <ScrollReveal className={scrollFadeIn}>
+          <div className="bg-[#1e1e2e] rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+            {/* Editor Header */}
+            <div className="flex items-center justify-between px-4 py-3 bg-[#181825] border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#f38ba8]" />
+                <div className="w-3 h-3 rounded-full bg-[#f9e2af]" />
+                <div className="w-3 h-3 rounded-full bg-[#a6e3a1]" />
+              </div>
+              <span className="text-gray-400 text-sm">wagmi.config.ts</span>
+              <button
+                onClick={handleCopy}
+                className={`flex items-center cursor-pointer gap-1.5 text-gray-400 text-sm hover:text-white transition-all duration-200 ${
+                  copied ? "scale-110" : ""
+                }`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    Copy
+                  </>
+                )}
+              </button>
             </div>
-            <span className="text-gray-400 text-sm">wagmi.config.ts</span>
-            <button
-              onClick={handleCopy}
-              className="flex items-center cursor-pointer gap-1.5 text-gray-400 text-sm hover:text-white transition-colors"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-4 h-4" />
-                  Copied!
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4" />
-                  Copy
-                </>
-              )}
-            </button>
-          </div>
 
           {/* Code Content */}
           <div className="p-3 md:p-4 overflow-x-auto">
@@ -166,6 +171,7 @@ export const CodeShowcase = () => {
             </pre>
           </div>
         </div>
+        </ScrollReveal>
 
         {/* CTA Button */}
         <div className="text-center mt-6 md:mt-8">
