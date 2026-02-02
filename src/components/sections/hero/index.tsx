@@ -49,7 +49,7 @@ export const Hero = () => {
           </p>
 
           {/* Checklist */}
-          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-8 max-w-[90%] mx-auto">
+          <ul className="flex flex-col md:flex-row md:flex-wrap md:justify-center gap-x-6 gap-y-3 mb-8 max-w-[90%] mx-auto">
             <li className={`flex items-center gap-2 ${mounted ? `animate-in fade-in duration-500 ${staggerDelays[200]}` : 'opacity-0'}`}>
               <Check className="w-5 h-5  text-[#4f46e5] flex-shrink-0" strokeWidth={2} />
               <span className="text-gray-900 font-medium whitespace-nowrap">
