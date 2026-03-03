@@ -14,7 +14,7 @@ export const Navbar = () => {
     };
 
     return (
-        <header className="fixed top-[34px] md:top-[36px] left-0 right-0 z-50 bg-white border-b border-gray-200">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
             <div className="max-w-[1280px] mx-auto px-4 md:px-6 h-[60px] md:h-[68px] flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="flex items-center">
@@ -30,6 +30,13 @@ export const Navbar = () => {
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-5">
                     <div className="flex items-center gap-1">
+                        <a
+                            href="https://playground.jaw.id/"
+                            target="_blank" rel="noopener noreferrer"
+                            className="text-gray-900 hover:text-gray-600 text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                        >
+                            Playground
+                        </a>
                         <a
                             href="https://docs.jaw.id"
                             target="_blank" rel="noopener noreferrer"
@@ -67,6 +74,15 @@ export const Navbar = () => {
                     <SheetContent side="right" className="w-[280px] sm:w-[320px]">
                         <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                         <nav className="flex text-center flex-col gap-1 mt-8">
+                            <a
+                                href="https://playground.jaw.id/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={handleLinkClick}
+                                className="text-base font-medium text-gray-900 hover:bg-gray-50 active:bg-gray-100 transition-all py-3 px-4 rounded-lg "
+                            >
+                                Playground
+                            </a>
                             <a
                                 href="https://docs.jaw.id"
                                 target="_blank"
