@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
-const siteTitle = "JAW.ID - Identity-Centric Infrastructure for Smart Accounts";
+const siteTitle = "JAW.ID - Identity-Centric Smart Account Infrastructure";
 const siteDescription =
   "Access onchain capabilities without carrying its complexity. Built on true self-custody with passkey authentication, gasless ENS identity, and multi-chain support.";
 
