@@ -54,7 +54,10 @@ export const Dashboard = () => {
               {/* Feature List */}
               <ul className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                 {features.map((feature, index) => (
-                  <li key={index} className={`flex items-start gap-2 md:gap-3 animate-in fade-in duration-500 delay-${index * 100 + 200}`}>
+                  <li
+                    key={index}
+                    className={`flex items-start gap-2 md:gap-3 animate-in fade-in duration-500 delay-${index * 100 + 200}`}
+                  >
                     <Check
                       className="w-4 h-4 md:w-5 md:h-5 mt-0.5 flex-shrink-0 text-white"
                       strokeWidth={2}
@@ -75,7 +78,10 @@ export const Dashboard = () => {
                 asChild
                 className="bg-white text-[#171717] hover:bg-gray-100 h-9"
               >
-                <a href="https://dashboard.jaw.id"                             target="_blank" rel="noopener noreferrer"
+                <a
+                  href="https://dashboard.jaw.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Get started
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -89,7 +95,7 @@ export const Dashboard = () => {
             <div className="relative lg:absolute lg:right-0 lg:bottom-0 w-full lg:w-[612px] h-[200px] md:h-[300px] lg:h-[434px] rounded-lg shadow-lg overflow-hidden mt-6 lg:mt-0">
               <Image
                 src={dashboardImage}
-                alt="JAW.ID Dashboard"
+                alt="JAW.ID analytics dashboard showing real-time user activity, identity verification, and cross-chain monitoring"
                 className="w-full h-full object-cover object-left-top lg:object-cover"
                 width={612}
                 height={434}
