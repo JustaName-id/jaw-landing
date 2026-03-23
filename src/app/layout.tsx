@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/assets/jaw-logo.png",
+        url: "/assets/og-card.png",
         width: 1200,
         height: 630,
         alt: "JAW.ID",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     site: "@_JAW_ID",
     title: siteTitle,
     description: siteDescription,
-    images: ["/assets/jaw-logo.png"],
+    images: ["/assets/og-card.png"],
   },
   robots: {
     index: true,
