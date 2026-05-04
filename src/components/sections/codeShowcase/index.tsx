@@ -1,192 +1,186 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Copy, Check } from "lucide-react";
-import { useState } from "react";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import { scrollFadeIn } from "@/lib/animations";
+import { useEffect, useState, type ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
+import { Section } from "@/components/section";
+import { SectionHead } from "@/components/sectionHead";
 
-const codeContent = `import { jaw } from '@jaw-id/wagmi'
-import { createConfig, http } from 'wagmi'
-import { mainnet, base } from 'wagmi/chains'
+type Token = string | { t: string; c?: "k" | "s" | "f" | "p" };
 
-const config = createConfig({
-  chains: [mainnet, base],
-  connectors: [
-    jaw({
-      apiKey: 'your-api-key',
-    })
-  ],
-  transports: {
-    [mainnet.id]: http(),
-    [base.id]: http(),
-  }
-})`;
+const code: Token[] = [
+  { t: "import", c: "k" },
+  { t: " { jaw } " },
+  { t: "from", c: "k" },
+  { t: " '@jaw-id/wagmi'", c: "s" },
+  { t: ";" },
+  "\n",
+  { t: "import", c: "k" },
+  { t: " { createConfig, http } " },
+  { t: "from", c: "k" },
+  { t: " 'wagmi'", c: "s" },
+  { t: ";" },
+  "\n",
+  { t: "import", c: "k" },
+  { t: " { mainnet, base } " },
+  { t: "from", c: "k" },
+  { t: " 'wagmi/chains'", c: "s" },
+  { t: ";" },
+  "\n\n",
+  { t: "const", c: "k" },
+  { t: " config " },
+  { t: "= " },
+  { t: "createConfig", c: "f" },
+  { t: "({" },
+  "\n  ",
+  { t: "chains", c: "p" },
+  { t: ": [mainnet, base]," },
+  "\n  ",
+  { t: "connectors", c: "p" },
+  { t: ": [" },
+  "\n    ",
+  { t: "jaw", c: "f" },
+  { t: "({ " },
+  { t: "apiKey", c: "p" },
+  { t: ": " },
+  { t: "'your-api-key'", c: "s" },
+  { t: " })," },
+  "\n  ],",
+  "\n  ",
+  { t: "transports", c: "p" },
+  { t: ": {" },
+  "\n    [mainnet.",
+  { t: "id", c: "p" },
+  { t: "]: " },
+  { t: "http", c: "f" },
+  { t: "()," },
+  "\n    [base.",
+  { t: "id", c: "p" },
+  { t: "]: " },
+  { t: "http", c: "f" },
+  { t: "()," },
+  "\n  },",
+  "\n});",
+];
 
-export const CodeShowcase = () => {
+const palette = {
+  k: "#C792EA",
+  s: "#C3E88D",
+  f: "#82AAFF",
+  p: "#F07178",
+  default: "#E5E7EB",
+};
+
+const fullText = code
+  .map((x) => (typeof x === "string" ? x : x.t))
+  .join("");
+
+const CodeBlock = () => {
+  const [typed, setTyped] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    let raf: number;
+    let start: number | undefined;
+    const total = fullText.length;
+    const step = (t: number) => {
+      if (!start) start = t;
+      const k = Math.min(1, (t - start) / 2000);
+      setTyped(Math.floor(k * total));
+      if (k < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  let remaining = typed;
+  const out: ReactNode[] = [];
+  for (const part of code) {
+    if (remaining <= 0) break;
+    if (typeof part === "string") {
+      const take = part.slice(0, remaining);
+      remaining -= take.length;
+      out.push(take);
+    } else {
+      const take = part.t.slice(0, remaining);
+      remaining -= take.length;
+      out.push(
+        <span
+          key={out.length}
+          style={{ color: palette[part.c ?? "default"] }}
+        >
+          {take}
+        </span>,
+      );
+    }
+  }
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(codeContent);
+      await navigator.clipboard.writeText(fullText);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 1400);
     } catch (err) {
-      console.error('Failed to copy:', err);
+      console.error("Failed to copy:", err);
     }
   };
+
   return (
-    <section className="py-12 md:py-24 px-4 md:px-6 relative overflow-hidden">
-      {/* Background gradient */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(135deg, #f8f9ff 0%, #ffffff 40%, #f0f4ff 100%)",
-        }}
-      />
-      {/* Dot pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #a5b4fc 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        }}
-      />
-      <div className="max-w-[900px] mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-6 md:mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 font-['Space_Grotesk',sans-serif]">
-            Production-Ready in Minutes
-          </h2>
-          <p className="text-gray-500 text-sm md:text-base">
-            Integrate JAW in just a few lines of code.
-          </p>
+    <div className="overflow-hidden rounded-[14px] border border-[#1E2340] bg-[#0B1020] shadow-[0_30px_60px_-30px_rgba(15,23,42,0.35)]">
+      <div className="flex items-center border-b border-[#1E2340] px-3.5 py-2.5">
+        <div className="flex gap-1.5">
+          {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => (
+            <span
+              key={c}
+              className="size-2.5 rounded-full"
+              style={{ background: c }}
+            />
+          ))}
         </div>
-
-        {/* Code Editor */}
-        <ScrollReveal className={scrollFadeIn}>
-          <div className="bg-[#1e1e2e] rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
-            {/* Editor Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-[#181825] border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#f38ba8]" />
-                <div className="w-3 h-3 rounded-full bg-[#f9e2af]" />
-                <div className="w-3 h-3 rounded-full bg-[#a6e3a1]" />
-              </div>
-              <span className="text-gray-400 text-sm">wagmi.config.ts</span>
-              <button
-                onClick={handleCopy}
-                className={`flex items-center cursor-pointer gap-1.5 text-gray-400 text-sm hover:text-white transition-all duration-200 ${
-                  copied ? "scale-110" : ""
-                }`}
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    Copy
-                  </>
-                )}
-              </button>
-            </div>
-
-          {/* Code Content */}
-          <div className="p-3 md:p-4 overflow-x-auto">
-            <pre className="text-[10px] md:text-xs leading-4 md:leading-5 font-mono">
-              <code>
-                <span className="text-[#cba6f7]">import</span>
-                <span className="text-[#cdd6f4]"> {"{ "}</span>
-                <span className="text-[#f9e2af]">jaw</span>
-                <span className="text-[#cdd6f4]">{" }"} </span>
-                <span className="text-[#cba6f7]">from</span>
-                <span className="text-[#a6e3a1]"> '@jaw-id/wagmi'</span>
-                {"\n"}
-                <span className="text-[#cba6f7]">import</span>
-                <span className="text-[#cdd6f4]"> {"{ "}</span>
-                <span className="text-[#f9e2af]">createConfig</span>
-                <span className="text-[#cdd6f4]">, </span>
-                <span className="text-[#f9e2af]">http</span>
-                <span className="text-[#cdd6f4]">{" }"} </span>
-                <span className="text-[#cba6f7]">from</span>
-                <span className="text-[#a6e3a1]"> 'wagmi'</span>
-                {"\n"}
-                <span className="text-[#cba6f7]">import</span>
-                <span className="text-[#cdd6f4]"> {"{ "}</span>
-                <span className="text-[#f9e2af]">mainnet</span>
-                <span className="text-[#cdd6f4]">, </span>
-                <span className="text-[#f9e2af]">base</span>
-                <span className="text-[#cdd6f4]">{" }"} </span>
-                <span className="text-[#cba6f7]">from</span>
-                <span className="text-[#a6e3a1]"> 'wagmi/chains'</span>
-                {"\n\n"}
-                <span className="text-[#cba6f7]">const</span>
-                <span className="text-[#cdd6f4]"> config = </span>
-                <span className="text-[#89b4fa]">createConfig</span>
-                <span className="text-[#cdd6f4]">{"({"}</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"  "}chains: [</span>
-                <span className="text-[#f9e2af]">mainnet</span>
-                <span className="text-[#cdd6f4]">, </span>
-                <span className="text-[#f9e2af]">base</span>
-                <span className="text-[#cdd6f4]">],</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"  "}connectors: [</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"    "}</span>
-                <span className="text-[#89b4fa]">jaw</span>
-                <span className="text-[#cdd6f4]">{"({"}</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"      "}apiKey: </span>
-                <span className="text-[#a6e3a1]">'your-api-key'</span>
-                <span className="text-[#cdd6f4]">,</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"    "}{"})"}</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"  "}],</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"  "}transports: {"{"}</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"    "}[</span>
-                <span className="text-[#f9e2af]">mainnet</span>
-                <span className="text-[#cdd6f4]">.id]: </span>
-                <span className="text-[#89b4fa]">http</span>
-                <span className="text-[#cdd6f4]">(),</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"    "}[</span>
-                <span className="text-[#f9e2af]">base</span>
-                <span className="text-[#cdd6f4]">.id]: </span>
-                <span className="text-[#89b4fa]">http</span>
-                <span className="text-[#cdd6f4]">(),</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"  "}{"}"}</span>
-                {"\n"}
-                <span className="text-[#cdd6f4]">{"})"}</span>
-              </code>
-            </pre>
-          </div>
-        </div>
-        </ScrollReveal>
-
-        {/* CTA Button */}
-        <div className="text-center mt-6 md:mt-8">
-          <Button
-            asChild
-            className="bg-[#171717] text-white hover:bg-gray-800 px-5 md:px-6 py-2.5 md:py-3 h-auto"
-          >
-            <a href="https://docs.jaw.id"                             target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-2">
-              View Full Documentation
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </Button>
-        </div>
+        <span className="mono flex-1 text-center text-[11px] text-[#94A3B8]">
+          wagmi.config.ts
+        </span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="mono cursor-pointer rounded-md border border-[#1E2340] bg-transparent px-2 py-1 text-[10px] text-[#CBD5E1]"
+        >
+          {copied ? "✓ Copied" : "Copy"}
+        </button>
       </div>
-    </section>
+      <pre
+        className="mono m-0 min-h-[280px] overflow-auto whitespace-pre bg-[#0B1020] px-6 py-5 text-[13px] leading-[1.7] text-[#E5E7EB] [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,.04)_1px,transparent_0)] [background-size:14px_14px] max-md:px-4 max-md:py-4 max-md:text-[11.5px]"
+      >
+        {out}
+        <span
+          className="caret ml-px inline-block h-3.5 w-[7px] align-[-2px]"
+          style={{ background: "#C792EA" }}
+        />
+      </pre>
+    </div>
+  );
+};
+
+export const CodeShowcase = () => {
+  return (
+    <Section variant="dots">
+      <SectionHead
+        align="center"
+        title={<>Production-Ready in Minutes</>}
+        sub="Integrate JAW in just a few lines of code."
+      />
+      <div className="mx-auto max-w-[720px]">
+        <CodeBlock />
+      </div>
+      <div className="mt-7 flex justify-center gap-3">
+        <a
+          href="https://docs.jaw.id"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary"
+        >
+          View Full Documentation <ArrowRight size={14} />
+        </a>
+      </div>
+    </Section>
   );
 };

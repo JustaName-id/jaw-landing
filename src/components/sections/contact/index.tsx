@@ -2,7 +2,10 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactFormSchema, type ContactFormData } from "@/lib/validations/contact";
+import {
+  contactFormSchema,
+  type ContactFormData,
+} from "@/lib/validations/contact";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,7 +80,8 @@ export const Contact = () => {
     } catch (error) {
       console.error("Form submission error:", error);
       toast.error("Failed to send message", {
-        description: error instanceof Error ? error.message : "Please try again later.",
+        description:
+          error instanceof Error ? error.message : "Please try again later.",
       });
     }
   };
@@ -100,10 +104,10 @@ export const Contact = () => {
 
           {/* Text Content */}
           <div className="relative z-10 text-left px-6 md:pl-16 lg:pl-24 md:pr-8 max-w-full md:max-w-[500px]">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-5 font-['Space_Grotesk',sans-serif] text-gray-900">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-5 text-gray-900">
               Get in touch
             </h2>
-            <p className="text-gray-600 text-base md:text-lg mb-8 md:mb-10 whitespace-nowrap">
+            <p className="text-gray-600 text-base md:text-lg mb-8 md:mb-10">
               Ready to build with JAW? Drop us a message.
             </p>
 
@@ -140,7 +144,11 @@ export const Contact = () => {
         <div className="bg-white flex items-center justify-center px-6 md:px-12 lg:px-16 py-12 md:py-16">
           <div className="w-full max-w-md">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              <div ref={(el) => { errorRefs.current.name = el; }}>
+              <div
+                ref={(el) => {
+                  errorRefs.current.name = el;
+                }}
+              >
                 <Label
                   htmlFor="name"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -154,15 +162,21 @@ export const Contact = () => {
                   {...register("name")}
                   className={cn(
                     "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto transition-all duration-200",
-                    errors.name && "border-red-500"
+                    errors.name && "border-red-500",
                   )}
                 />
                 {errors.name && (
-                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.name.message}</p>
+                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">
+                    {errors.name.message}
+                  </p>
                 )}
               </div>
 
-              <div ref={(el) => { errorRefs.current.email = el; }}>
+              <div
+                ref={(el) => {
+                  errorRefs.current.email = el;
+                }}
+              >
                 <Label
                   htmlFor="email"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -176,17 +190,23 @@ export const Contact = () => {
                   {...register("email")}
                   className={cn(
                     "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent h-auto transition-all duration-200",
-                    errors.email && "border-red-500"
+                    errors.email && "border-red-500",
                   )}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.email.message}</p>
+                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
               {/* Company + I am a row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div ref={(el) => { errorRefs.current.company = el; }}>
+                <div
+                  ref={(el) => {
+                    errorRefs.current.company = el;
+                  }}
+                >
                   <Label
                     htmlFor="company"
                     className="text-sm font-medium text-gray-900 mb-2 block"
@@ -200,15 +220,21 @@ export const Contact = () => {
                     {...register("company")}
                     className={cn(
                       "w-full px-4 !h-[50px] bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200",
-                      errors.company && "border-red-500"
+                      errors.company && "border-red-500",
                     )}
                   />
                   {errors.company && (
-                    <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.company.message}</p>
+                    <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">
+                      {errors.company.message}
+                    </p>
                   )}
                 </div>
 
-                <div ref={(el) => { errorRefs.current.role = el; }}>
+                <div
+                  ref={(el) => {
+                    errorRefs.current.role = el;
+                  }}
+                >
                   <Label
                     htmlFor="role"
                     className="text-sm font-medium text-gray-900 mb-2 block"
@@ -217,12 +243,19 @@ export const Contact = () => {
                   </Label>
                   <Select
                     value={watch("role") || ""}
-                    onValueChange={(value) => setValue("role", value as "developer" | "business" | "other")}
+                    onValueChange={(value) =>
+                      setValue(
+                        "role",
+                        value as "developer" | "business" | "other",
+                      )
+                    }
                   >
-                    <SelectTrigger className={cn(
-                      "w-full px-4 !h-[50px] bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all duration-200",
-                      errors.role && "border-red-500"
-                    )}>
+                    <SelectTrigger
+                      className={cn(
+                        "w-full px-4 !h-[50px] bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all duration-200",
+                        errors.role && "border-red-500",
+                      )}
+                    >
                       <SelectValue placeholder="Select your Role" />
                     </SelectTrigger>
                     <SelectContent className="bg-white border border-gray-300 shadow-lg">
@@ -247,12 +280,18 @@ export const Contact = () => {
                     </SelectContent>
                   </Select>
                   {errors.role && (
-                    <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.role.message}</p>
+                    <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">
+                      {errors.role.message}
+                    </p>
                   )}
                 </div>
               </div>
 
-              <div ref={(el) => { errorRefs.current.message = el; }}>
+              <div
+                ref={(el) => {
+                  errorRefs.current.message = el;
+                }}
+              >
                 <Label
                   htmlFor="message"
                   className="text-sm font-medium text-gray-900 mb-2 block"
@@ -266,11 +305,13 @@ export const Contact = () => {
                   {...register("message")}
                   className={cn(
                     "w-full px-4 py-3 bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent resize-none transition-all duration-200",
-                    errors.message && "border-red-500"
+                    errors.message && "border-red-500",
                   )}
                 />
                 {errors.message && (
-                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">{errors.message.message}</p>
+                  <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-200">
+                    {errors.message.message}
+                  </p>
                 )}
               </div>
 
@@ -279,7 +320,7 @@ export const Contact = () => {
                 disabled={isSubmitting}
                 className={cn(
                   "w-full bg-black text-white hover:bg-gray-800 py-3 h-auto rounded-lg font-medium",
-                  isSubmitting && "opacity-50 cursor-not-allowed animate-pulse"
+                  isSubmitting && "opacity-50 cursor-not-allowed animate-pulse",
                 )}
               >
                 {isSubmitting ? (

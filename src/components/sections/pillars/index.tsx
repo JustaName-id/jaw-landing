@@ -1,70 +1,87 @@
-"use client";
+import { Fingerprint, Layers } from "lucide-react";
+import type { ReactNode } from "react";
+import { Section } from "@/components/section";
+import { SectionHead } from "@/components/sectionHead";
 
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import { scrollFadeIn, staggerDelays } from "@/lib/animations";
+const TagIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 2 5 9.5v5L12 22l7-7.5v-5z" />
+    <path d="m6 8.5 12 7" />
+  </svg>
+);
 
-const pillars = [
+interface Pillar {
+  n: string;
+  title: string;
+  description: string;
+  icon: ReactNode;
+}
+
+const pillars: Pillar[] = [
   {
-    number: "1",
+    n: "01",
     title: "Smart Auth",
     description: "Biometric login meets account abstraction.",
+    icon: <Fingerprint size={20} strokeWidth={1.6} />,
   },
   {
-    number: "2",
+    n: "02",
     title: "Identity",
     description: "ENS-powered identity built in, not bolted on.",
+    icon: <TagIcon />,
   },
   {
-    number: "3",
+    n: "03",
     title: "Neutral Stack",
     description: "We don't pick chains. The choice is all yours.",
+    icon: <Layers size={20} strokeWidth={1.6} />,
   },
 ];
 
 export function Pillars() {
   return (
-    <section className="pt-6 md:pt-8 pb-12 md:pb-16 px-4 md:px-6 bg-white">
-      <div className="max-w-[1100px] mx-auto">
-        {/* Header - Left aligned */}
-        <div className="mb-8 md:mb-10">
-          <h2 className="text-2xl md:text-3xl lg:text-[36px] font-bold mb-2 font-['Space_Grotesk',sans-serif] leading-tight text-[#0a0a0a]">
-            Three Birds, One Stone
-          </h2>
-          <p className="text-[#737373] text-sm md:text-base">
-            Most teams patch together separate solutions for auth, accounts, and
-            identity. JAW.ID unifies all three. One SDK fits all.
-          </p>
-        </div>
+    <Section variant="plain">
+      <SectionHead
+        align="split"
+        title={
+          <>
+            Three Birds,
+            <br />
+            <span className="serif text-[var(--acc)]">One Stone.</span>
+          </>
+        }
+        sub="Most teams patch together separate solutions for auth, accounts, and identity. JAW.ID unifies all three. One SDK fits all."
+      />
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 relative z-10">
-          {pillars.map((pillar, index) => (
-            <ScrollReveal
-              key={index}
-              delay={(index + 1) * 100}
-              className={`${scrollFadeIn} hover:scale-[1.02] transition-all duration-300`}
-            >
-              <div
-                className="border border-[#e5e5e5] rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300"
-                style={{ backgroundColor: "#ffffff" }}
-              >
-                <div className="px-6 py-6 h-full flex flex-col">
-                  {/* Title - centered */}
-                  <div className="text-center mb-2">
-                    <span className="text-[28px] font-semibold text-[#0a0a0a] font-['Space_Grotesk',sans-serif]">
-                      {pillar.title}
-                    </span>
-                  </div>
-                  {/* Description - centered */}
-                  <p className="text-[#0a0a0a] opacity-90 text-base leading-6 text-center">
-                    {pillar.description}
-                  </p>
-                </div>
+      <div className="grid grid-cols-1 overflow-hidden rounded-[18px] border border-[var(--line)] bg-[var(--bg-raise)] lg:grid-cols-3">
+        {pillars.map((p, i) => (
+          <article
+            key={p.n}
+            className="pillar relative px-7 py-9 transition-colors duration-300 max-lg:border-b max-lg:border-[var(--line)] max-lg:last:border-b-0 lg:[&:not(:last-child)]:border-r lg:[&:not(:last-child)]:border-[var(--line)] max-md:px-7 max-md:py-9 max-md:text-center max-md:bg-[var(--bg-raise)]"
+          >
+            <div className="mb-2.5 flex items-center justify-between gap-4 max-md:flex-col max-md:gap-2 max-md:justify-center">
+              <h3 className="m-0 text-[24px] font-medium tracking-[-0.02em] max-md:text-[30px] max-md:font-bold">
+                {p.title}
+              </h3>
+              <div className="pillar-icon grid size-11 shrink-0 place-items-center rounded-[10px] border border-[var(--line-2)] bg-[var(--bg-raise-2)] text-[var(--ink)] transition-all duration-300 max-md:hidden">
+                {p.icon}
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
+            </div>
+            <p className="m-0 text-[15px] leading-[1.55] text-[var(--ink-2)]">
+              {p.description}
+            </p>
+          </article>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }

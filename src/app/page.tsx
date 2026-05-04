@@ -5,11 +5,12 @@ import {
   Features,
   BentoGrid,
   CodeShowcase,
+  CLI,
   Dashboard,
   Pricing,
   FAQ,
-  Contact
-} from '@/components/sections';
+  Contact,
+} from "@/components/sections";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Features />
       <BentoGrid />
       <CodeShowcase />
+      <CLI />
       <Dashboard />
       <Pricing />
       <FAQ />

@@ -4,6 +4,7 @@ export * from "./builtFor";
 export * from "./features";
 export * from "./bentoGrid";
 export * from "./codeShowcase";
+export * from "./cli";
 export * from "./dashboard";
 export * from "./pricing";
 export * from "./faq";
