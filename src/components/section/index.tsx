@@ -1,5 +1,6 @@
 import type { ReactNode, CSSProperties } from "react";
 import { cn } from "@/lib/utils";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 export type SectionVariant = "plain" | "raise" | "dots" | "diag" | "dark";
 
@@ -12,6 +13,10 @@ interface SectionProps {
   contentClassName?: string;
   style?: CSSProperties;
   children: ReactNode;
+  /** wrap children in a fade-in-on-scroll observer (default true). */
+  reveal?: boolean;
+  /** delay (ms) for the reveal animation. */
+  revealDelay?: number;
 }
 
 const variantClass: Record<SectionVariant, string> = {
@@ -31,7 +36,20 @@ export const Section = ({
   contentClassName,
   style,
   children,
+  reveal = true,
+  revealDelay = 0,
 }: SectionProps) => {
+  const content = (
+    <div
+      className={cn(
+        "relative mx-auto max-w-[1260px] px-5 md:px-6 lg:px-8",
+        contentClassName,
+      )}
+    >
+      {children}
+    </div>
+  );
+
   return (
     <section
       id={id}
@@ -47,14 +65,11 @@ export const Section = ({
         className,
       )}
     >
-      <div
-        className={cn(
-          "relative mx-auto max-w-[1260px] px-5 md:px-6 lg:px-8",
-          contentClassName,
-        )}
-      >
-        {children}
-      </div>
+      {reveal ? (
+        <ScrollReveal delay={revealDelay}>{content}</ScrollReveal>
+      ) : (
+        content
+      )}
     </section>
   );
 };

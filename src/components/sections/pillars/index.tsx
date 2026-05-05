@@ -1,23 +1,11 @@
-import { Fingerprint, Layers } from "lucide-react";
 import type { ReactNode } from "react";
 import { Section } from "@/components/section";
 import { SectionHead } from "@/components/sectionHead";
-
-const TagIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    width="20"
-    height="20"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.6"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 2 5 9.5v5L12 22l7-7.5v-5z" />
-    <path d="m6 8.5 12 7" />
-  </svg>
-);
+import {
+  FingerprintIcon,
+  JawMarkIcon,
+  NetworkCubesIcon,
+} from "@/components/icons/landing";
 
 interface Pillar {
   n: string;
@@ -31,19 +19,19 @@ const pillars: Pillar[] = [
     n: "01",
     title: "Smart Auth",
     description: "Biometric login meets account abstraction.",
-    icon: <Fingerprint size={20} strokeWidth={1.6} />,
+    icon: <FingerprintIcon size={20} />,
   },
   {
     n: "02",
     title: "Identity",
     description: "ENS-powered identity built in, not bolted on.",
-    icon: <TagIcon />,
+    icon: <JawMarkIcon size={18} />,
   },
   {
     n: "03",
     title: "Neutral Stack",
     description: "We don't pick chains. The choice is all yours.",
-    icon: <Layers size={20} strokeWidth={1.6} />,
+    icon: <NetworkCubesIcon size={20} />,
   },
 ];
 

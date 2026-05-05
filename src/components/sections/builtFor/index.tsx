@@ -148,7 +148,7 @@ export const BuiltFor = () => {
 
       {/* Mobile icon grid selector */}
       <div className="mx-auto mb-6 max-w-full md:hidden">
-        <div className="grid grid-cols-3 gap-2 rounded-2xl border border-[var(--line)] bg-[var(--bg-raise)] p-2.5">
+        <div className="grid grid-cols-3 gap-1.5 rounded-2xl border border-[var(--line)] bg-[var(--bg-raise)] p-1.5">
           {tabs.map((t) => {
             const isActive = active === t.id;
             const Icon = t.icon;
@@ -158,7 +158,7 @@ export const BuiltFor = () => {
                 type="button"
                 onClick={() => setActive(t.id)}
                 className={cn(
-                  "flex min-h-[72px] cursor-pointer flex-col items-center justify-center gap-1.5 rounded-[10px] border-none px-1.5 py-3.5 transition-all duration-200",
+                  "flex min-h-[56px] cursor-pointer flex-col items-center justify-center gap-1 rounded-[8px] border-none px-1 py-2 transition-all duration-200",
                   isActive
                     ? "bg-[var(--ink)] text-[var(--bg)]"
                     : "bg-transparent text-[var(--ink-2)]",
@@ -170,9 +170,9 @@ export const BuiltFor = () => {
                     isActive ? "opacity-100" : "opacity-75",
                   )}
                 >
-                  <Icon size={20} strokeWidth={1.6} />
+                  <Icon size={16} strokeWidth={1.6} />
                 </span>
-                <span className="text-center text-[11.5px] font-medium leading-tight tracking-[-0.005em]">
+                <span className="text-center text-[10.5px] font-medium leading-tight tracking-[-0.005em]">
                   {t.label}
                 </span>
               </button>

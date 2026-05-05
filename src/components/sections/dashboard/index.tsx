@@ -43,14 +43,16 @@ export const Dashboard = () => {
             Monitor users, track engagement, and optimize your wallet experience
             from one powerful dashboard.
           </p>
-          <a
-            href="https://dashboard.jaw.id"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-          >
-            Get started <ArrowRight size={14} />
-          </a>
+          <div className="max-md:flex max-md:justify-center">
+            <a
+              href="https://dashboard.jaw.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Get started <ArrowRight size={14} />
+            </a>
+          </div>
         </div>
         <div className="relative overflow-hidden rounded-[14px] border border-[var(--line)] shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)]">
           <Image

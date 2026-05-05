@@ -56,7 +56,7 @@ export const CLI = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-start md:justify-center">
+          <div className="flex items-center justify-center md:justify-center">
             <a
               href="https://docs.jaw.id"
               target="_blank"
