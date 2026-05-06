@@ -205,7 +205,7 @@ export const ChainsIll = () => {
     "base",
     "bsc",
     "celo",
-    "dos",
+    "ink",
     "linea",
     "optimism",
   ];
