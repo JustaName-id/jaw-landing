@@ -24,7 +24,14 @@ export const DeployIll = () => (
         repeatCount="indefinite"
       />
     </path>
-    <circle cx="20" cy="120" r="5" fill="var(--bg)" stroke="var(--ink)" strokeWidth="1.5" />
+    <circle
+      cx="20"
+      cy="120"
+      r="5"
+      fill="var(--bg)"
+      stroke="var(--ink)"
+      strokeWidth="1.5"
+    />
     <g>
       <animateMotion dur="4.5s" repeatCount="indefinite" rotate="auto">
         <mpath href="#arc" />
@@ -65,9 +72,32 @@ export const DeployIll = () => (
 
 export const OnboardIll = () => (
   <svg viewBox="0 0 200 140" width="100%" height="100%">
-    <rect x="62" y="14" width="76" height="112" rx="12" fill="var(--bg-raise-2)" stroke="var(--line-2)" />
-    <rect x="68" y="22" width="64" height="96" rx="6" fill="var(--bg)" stroke="var(--line)" />
-    <rect x="88" y="22" width="24" height="5" rx="2.5" fill="var(--bg-raise-2)" />
+    <rect
+      x="62"
+      y="14"
+      width="76"
+      height="112"
+      rx="12"
+      fill="var(--bg-raise-2)"
+      stroke="var(--line-2)"
+    />
+    <rect
+      x="68"
+      y="22"
+      width="64"
+      height="96"
+      rx="6"
+      fill="var(--bg)"
+      stroke="var(--line)"
+    />
+    <rect
+      x="88"
+      y="22"
+      width="24"
+      height="5"
+      rx="2.5"
+      fill="var(--bg-raise-2)"
+    />
     <g transform="translate(100 62)">
       {[
         [-18, -18, 0, 0],
@@ -97,7 +127,13 @@ export const OnboardIll = () => (
         </g>
       ))}
       <g opacity=".85">
-        <circle r="12" fill="none" stroke="var(--acc)" strokeWidth="1.2" opacity=".5" />
+        <circle
+          r="12"
+          fill="none"
+          stroke="var(--acc)"
+          strokeWidth="1.2"
+          opacity=".5"
+        />
         <circle cx="-4" cy="-2" r="1.2" fill="var(--acc)" />
         <circle cx="4" cy="-2" r="1.2" fill="var(--acc)" />
         <path
@@ -109,14 +145,34 @@ export const OnboardIll = () => (
         />
       </g>
       <line x1="-18" x2="18" stroke="var(--acc)" strokeWidth="1" opacity=".8">
-        <animate attributeName="y1" values="-18;18;-18" dur="4.5s" repeatCount="indefinite" />
-        <animate attributeName="y2" values="-18;18;-18" dur="4.5s" repeatCount="indefinite" />
+        <animate
+          attributeName="y1"
+          values="-18;18;-18"
+          dur="4.5s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="y2"
+          values="-18;18;-18"
+          dur="4.5s"
+          repeatCount="indefinite"
+        />
       </line>
     </g>
     <g transform="translate(146 28)">
       <circle r="11" fill="var(--acc)" opacity=".2">
-        <animate attributeName="r" values="11;16;11" dur="4s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values=".25;0;.25" dur="4s" repeatCount="indefinite" />
+        <animate
+          attributeName="r"
+          values="11;16;11"
+          dur="4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="opacity"
+          values=".25;0;.25"
+          dur="4s"
+          repeatCount="indefinite"
+        />
       </circle>
       <circle r="11" fill="var(--acc)" />
       <path
@@ -143,53 +199,78 @@ export const OnboardIll = () => (
 );
 
 export const ChainsIll = () => {
-  const mark: Record<string, { color: string; d: string }> = {
-    eth: {
-      color: "#627EEA",
-      d: "M12 4v5.2l5 2.2zM12 4 7 11.4l5-2.2zm0 9.5v4.5L17 12zM12 18v-4.5L7 12zM12 12.5 17 12l-5-2.7zM7 12l5 .5V9.8z",
-    },
-    base: {
-      color: "#0052FF",
-      d: "M12 20.5a8.5 8.5 0 1 1 0-17 8.5 8.5 0 0 1 8.3 7H6.3v3h14a8.5 8.5 0 0 1-8.3 7z",
-    },
-    op: {
-      color: "#FF0420",
-      d: "M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-1.2 11.2c-.7 0-1.2-.2-1.6-.5-.3-.3-.5-.8-.5-1.4 0-.1 0-.3 0-.4.1-.7.3-1.2.5-1.6.5-.9 1.3-1.3 2.4-1.3.7 0 1.2.2 1.5.5.4.3.5.8.5 1.4 0 .1 0 .3 0 .4-.1.8-.3 1.3-.5 1.7-.5.8-1.3 1.2-2.3 1.2zm4.2-.8 1.1-5.4h2c.6 0 1 .1 1.3.3.3.2.5.5.5 1 0 .2 0 .3 0 .5-.1.5-.3 1-.7 1.3-.4.3-.9.4-1.5.4h-.9l-.4 1.9z",
-    },
-    arb: {
-      color: "#28A0F0",
-      d: "M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-1.8 4 2.7 6.5h-1.6l-.6-1.6h-2.3l-.6 1.6H6.4zM15.5 8 18 14.5h-1.6l-.5-1.6h-2.4l-.5 1.6H11.4z",
-    },
-    linea: {
-      color: "#121212",
-      d: "M7 8.5h1.6v7H7zm3 0h1.6v5.4H15V15.5h-5z",
-    },
-    avax: {
-      color: "#E84142",
-      d: "M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-2.3 11.2h-1.9c-.3 0-.5 0-.6-.1-.1-.1-.2-.2-.2-.4s.1-.3.2-.5l3.7-6.5c.1-.2.2-.3.4-.4.2-.1.3-.1.6-.1h1.9c.3 0 .5 0 .6.1.1.1.2.2.2.4s-.1.3-.2.5L10.7 14.7c-.1.2-.2.3-.4.4-.2.1-.3.1-.6.1zm5.5 0h-2.1c-.2 0-.4 0-.5-.1-.1-.1-.2-.2-.2-.4s.1-.3.2-.5l1-1.8c.1-.2.2-.3.4-.4.1-.1.3-.1.5-.1s.4 0 .5.1.3.2.4.4l1.1 1.8c.1.2.1.3.1.5s-.1.3-.2.4c-.1.1-.3.1-.5.1z",
-    },
-    bnb: {
-      color: "#F0B90B",
-      d: "M12 4.5 14.2 7 9.6 11.4 7.3 9zm-5.5 5.3L8.8 12l-2.3 2.2L4.2 12zM12 15.5l2.2-2.2 2.2 2.2L12 20zm5.2-3.5L19.5 10l2.3 2.3-2.3 2.2zM12 8l2.3 2.3L12 12.5 9.7 10.3z",
-    },
-    celo: {
-      color: "#FCFF52",
-      d: "M12 4.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM9 9.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zm6 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z",
-    },
-    flr: {
-      color: "#E62058",
-      d: "M7 7.5h10v2H9.5v2H15V13.5H9.5v3.5H7z",
-    },
-    ink: {
-      color: "#7132F5",
-      d: "M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 5.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z",
-    },
+  const ids = [
+    "arbitrum",
+    "avalanche",
+    "base",
+    "bsc",
+    "celo",
+    "dos",
+    "linea",
+    "optimism",
+  ];
+  const N = ids.length;
+
+  // Each pulse cycles through all 8 chips in a different stride so the
+  // three pulses land on different chips at any given time. The strides
+  // 3, 5, 7 are coprime with 8 → each sequence visits every chip exactly once.
+  const sequences: number[][] = [3, 5, 7].map((step, idx) => {
+    const start = idx;
+    return Array.from({ length: N }, (_, i) => (start + i * step) % N);
+  });
+
+  const VISIT = 1.6; // seconds per chip visit (was effectively 4.8s; faster + smaller)
+  const CYCLE = N * VISIT; // total animation duration per pulse
+
+  const buildPulseAnims = (seq: number[]) => {
+    const keyTimes: number[] = [];
+    const cx: number[] = [];
+    const cy: number[] = [];
+    const op: number[] = [];
+    seq.forEach((idx, k) => {
+      const a = (idx / N) * Math.PI * 2 - Math.PI / 2;
+      const xChip = 100 + Math.cos(a) * 54;
+      const yChip = 70 + Math.sin(a) * 54;
+      // start of visit: center, invisible
+      keyTimes.push(k / N);
+      cx.push(100);
+      cy.push(70);
+      op.push(0);
+      // fade-in done at 20% of visit (dot is ~20% of the way out)
+      keyTimes.push((k + 0.2) / N);
+      cx.push(100 + Math.cos(a) * 54 * 0.2);
+      cy.push(70 + Math.sin(a) * 54 * 0.2);
+      op.push(1);
+      // at chip: 67% of visit (dot lands and is briefly held)
+      keyTimes.push((k + 0.67) / N);
+      cx.push(xChip);
+      cy.push(yChip);
+      op.push(1);
+    });
+    // final endpoint at t=1: center, invisible (interpolates from last chip back)
+    keyTimes.push(1);
+    cx.push(100);
+    cy.push(70);
+    op.push(0);
+    return {
+      keyTimes: keyTimes.join(";"),
+      cx: cx.join(";"),
+      cy: cy.join(";"),
+      op: op.join(";"),
+    };
   };
-  const ids = ["base", "op", "arb", "linea", "avax", "bnb", "celo", "flr", "ink"];
 
   return (
     <svg viewBox="0 0 200 140" width="100%" height="100%">
-      <circle cx="100" cy="70" r="54" fill="none" stroke="var(--line-2)" strokeWidth=".8" opacity=".7" />
+      <circle
+        cx="100"
+        cy="70"
+        r="54"
+        fill="none"
+        stroke="var(--line-2)"
+        strokeWidth=".8"
+        opacity=".7"
+      />
       <circle
         cx="100"
         cy="70"
@@ -217,6 +298,51 @@ export const ChainsIll = () => {
           />
         );
       })}
+      {/* Pulses share the orbit's rotation so they always land ON a chip.
+          Each pulse cycles through all chips in a varied order via stride. */}
+      <g>
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from="0 100 70"
+          to="360 100 70"
+          dur="44s"
+          repeatCount="indefinite"
+        />
+        {sequences.map((seq, k) => {
+          const anims = buildPulseAnims(seq);
+          // stagger pulses across one visit so they don't fire simultaneously
+          const begin = `${(k * VISIT) / sequences.length}s`;
+          return (
+            <circle key={k} r="1.3" fill="var(--acc)">
+              <animate
+                attributeName="cx"
+                values={anims.cx}
+                keyTimes={anims.keyTimes}
+                dur={`${CYCLE}s`}
+                begin={begin}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="cy"
+                values={anims.cy}
+                keyTimes={anims.keyTimes}
+                dur={`${CYCLE}s`}
+                begin={begin}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="opacity"
+                values={anims.op}
+                keyTimes={anims.keyTimes}
+                dur={`${CYCLE}s`}
+                begin={begin}
+                repeatCount="indefinite"
+              />
+            </circle>
+          );
+        })}
+      </g>
       <g>
         <animateTransform
           attributeName="transform"
@@ -230,7 +356,6 @@ export const ChainsIll = () => {
           const a = (i / ids.length) * Math.PI * 2 - Math.PI / 2;
           const x = 100 + Math.cos(a) * 54;
           const y = 70 + Math.sin(a) * 54;
-          const m = mark[id];
           return (
             <g key={id} transform={`translate(${x} ${y})`}>
               <g>
@@ -242,54 +367,64 @@ export const ChainsIll = () => {
                   dur="44s"
                   repeatCount="indefinite"
                 />
-                <circle r="9" fill="var(--bg)" stroke="var(--line-2)" strokeWidth=".8" />
-                <g transform="translate(-6 -6) scale(0.5)">
-                  <path d={m.d} fill={m.color} />
-                </g>
+                <circle
+                  r="9"
+                  fill="var(--bg)"
+                  stroke="var(--line-2)"
+                  strokeWidth=".8"
+                />
+                <image
+                  href={`/chain-svgs/${id}.svg`}
+                  x="-6.5"
+                  y="-6.5"
+                  width="13"
+                  height="13"
+                  preserveAspectRatio="xMidYMid meet"
+                />
               </g>
             </g>
           );
         })}
       </g>
-      {[0, 3, 6].map((idx, k) => {
-        const a = (idx / ids.length) * Math.PI * 2 - Math.PI / 2;
-        const x = 100 + Math.cos(a) * 50;
-        const y = 70 + Math.sin(a) * 50;
-        return (
-          <circle key={k} r="1.6" fill="var(--acc)">
-            <animate
-              attributeName="cx"
-              values={`100;${x}`}
-              dur="4.8s"
-              begin={`${k * 1.6}s`}
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="cy"
-              values={`70;${y}`}
-              dur="4.8s"
-              begin={`${k * 1.6}s`}
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="opacity"
-              values="0;1;1;0"
-              dur="4.8s"
-              begin={`${k * 1.6}s`}
-              repeatCount="indefinite"
-            />
-          </circle>
-        );
-      })}
       <g>
-        <circle cx="100" cy="70" r="18" fill="none" stroke="var(--acc)" strokeWidth="1" opacity=".3">
-          <animate attributeName="r" values="18;26;18" dur="6s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values=".35;0;.35" dur="6s" repeatCount="indefinite" />
+        <circle
+          cx="100"
+          cy="70"
+          r="18"
+          fill="none"
+          stroke="var(--acc)"
+          strokeWidth="1"
+          opacity=".3"
+        >
+          <animate
+            attributeName="r"
+            values="18;26;18"
+            dur="6s"
+            repeatCount="indefinite"
+          />
+          <animate
+            attributeName="opacity"
+            values=".35;0;.35"
+            dur="6s"
+            repeatCount="indefinite"
+          />
         </circle>
-        <circle cx="100" cy="70" r="14" fill="var(--bg-raise)" stroke="var(--acc)" strokeWidth="1.2" />
-        <g transform="translate(94 63.5) scale(0.5)">
-          <path d={mark.eth.d} fill="#627EEA" />
-        </g>
+        <circle
+          cx="100"
+          cy="70"
+          r="14"
+          fill="var(--bg-raise)"
+          stroke="var(--acc)"
+          strokeWidth="1.2"
+        />
+        <image
+          href="/chain-svgs/ethereum.svg"
+          x="91"
+          y="61"
+          width="18"
+          height="18"
+          preserveAspectRatio="xMidYMid meet"
+        />
       </g>
     </svg>
   );
