@@ -74,9 +74,10 @@ export const Navbar = () => {
             href="https://dashboard.jaw.id"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary hidden md:inline-flex"
+            className="btn-primary max-md:!px-3.5 max-md:!py-1.5 max-md:!text-[12px] max-md:!gap-0"
           >
-            Get started <ArrowRight size={13} />
+            Get started{" "}
+            <ArrowRight size={13} className="max-md:hidden" />
           </a>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>

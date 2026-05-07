@@ -6,6 +6,7 @@ import { Navbar } from "@/layout/navbar";
 import { Footer } from "@/layout/footer";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { JsonLd } from "@/components/seo/json-ld";
+import { WebMcp } from "@/components/agent/web-mcp";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -83,6 +84,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <JsonLd />
+        <WebMcp />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-black"

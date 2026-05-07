@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: "Validation failed",
-          details: validationResult.error.flatten(),
         },
         { status: 400 },
       );
@@ -73,7 +72,7 @@ export async function POST(request: NextRequest) {
           success: false,
           error: "Failed to submit contact form",
         },
-        { status: strapiResponse.status },
+        { status: 502 },
       );
     }
 
@@ -86,7 +85,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "Contact form submitted successfully",
-      data: strapiResult.data,
     });
   } catch (error) {
     console.error("Unexpected error in contact API:", error);
