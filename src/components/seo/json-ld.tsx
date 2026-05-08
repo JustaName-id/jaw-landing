@@ -10,8 +10,19 @@ const organizationSchema = {
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: "JAW.ID",
+  legalName: "Torquem Technologies Ltd",
   url: SITE_URL,
   logo: `${SITE_URL}/assets/jaw-logo.png`,
+  description:
+    "Identity-centric smart account infrastructure for Web3, with passkey authentication, gasless ENS identity, and multi-chain support.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "71 Omega Drive, Suite 330",
+    addressLocality: "Newark",
+    addressRegion: "DE",
+    postalCode: "19713-2063",
+    addressCountry: "US",
+  },
   sameAs: [
     "https://x.com/_JAW_ID",
     "https://github.com/JustaName-id/jaw-mono",
@@ -25,6 +36,7 @@ const webSiteSchema = {
   "@type": "WebSite",
   name: "JAW.ID",
   url: SITE_URL,
+  inLanguage: "en",
   publisher: { "@id": `${SITE_URL}/#organization` },
 };
 
@@ -41,6 +53,25 @@ const faqPageSchema = {
   })),
 };
 
+const privacyBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Privacy Policy",
+      item: `${SITE_URL}/privacy-policy`,
+    },
+  ],
+};
+
 export const JsonLd = () => (
   <>
     <script
@@ -51,11 +82,23 @@ export const JsonLd = () => (
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: safeJsonLd(webSiteSchema) }}
     />
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: safeJsonLd(faqPageSchema as Record<string, unknown>),
-      }}
-    />
   </>
+);
+
+export const HomeFAQJsonLd = () => (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: safeJsonLd(faqPageSchema as Record<string, unknown>),
+    }}
+  />
+);
+
+export const PrivacyBreadcrumbJsonLd = () => (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: safeJsonLd(privacyBreadcrumbSchema),
+    }}
+  />
 );

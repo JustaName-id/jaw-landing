@@ -7,7 +7,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -45,79 +45,79 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #FFF;
-  --foreground: #FAFAFA;
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #E4E4E7;
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+
+  /* Design tokens */
+  --bg: #FFFFFF;
+  --bg-raise: #FAFAF9;
+  --bg-raise-2: #F4F4F2;
+  --line: #E7E5E4;
+  --line-2: #D6D3D1;
+  --ink: #0F172A;
+  --ink-2: #475569;
+  --ink-3: #94A3B8;
+  --ink-4: #CBD5E1;
+  --acc: #0F172A;
+  --acc-deep: #020617;
+  --acc-soft: rgba(15, 23, 42, .06);
+  --hero-electric: rgb(8, 81, 255);
+  --amber: #D97706;
+  --red: #DC2626;
+
+  /* shadcn aliases mapped onto design tokens */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--bg);
+  --card-foreground: var(--ink);
+  --popover: var(--bg);
+  --popover-foreground: var(--ink);
+  --primary: var(--acc);
+  --primary-foreground: var(--bg);
+  --secondary: var(--bg-raise);
+  --secondary-foreground: var(--ink);
+  --muted: var(--bg-raise-2);
+  --muted-foreground: var(--ink-2);
+  --accent: var(--bg-raise);
+  --accent-foreground: var(--ink);
+  --destructive: #DC2626;
+  --border: var(--line);
+  --input: var(--line-2);
+  --ring: var(--ink-3);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: #09090B;
-  --foreground: #FAFAFA;
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: #E4E4E7;
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar: var(--bg-raise);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--acc);
+  --sidebar-primary-foreground: var(--bg);
+  --sidebar-accent: var(--bg-raise-2);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--ink-3);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.45;
+    font-feature-settings: "ss01", "cv01", "tnum";
   }
 
   html {
@@ -125,17 +125,26 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-space-grotesk), sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    letter-spacing: -0.035em;
+    font-weight: 500;
   }
 
-  /* Hide scrollbar for horizontal scroll */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  ::selection {
+    background: var(--acc);
+    color: var(--bg);
   }
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  /* Global subtle film grain — keep below sticky nav (z 50) and Sheet portals */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9;
+    opacity: .035;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='5'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: screen;
   }
 
   /* Accessibility: Respect prefers-reduced-motion */
@@ -148,20 +157,146 @@
     }
   }
 
-  /* Subtle shake animation for form validation errors */
+  /* Form validation shake (used by Contact) */
   @keyframes shake {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-3px);
-    }
-    75% {
-      transform: translateX(3px);
-    }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
   }
-
   .animate-shake {
     animation: shake 0.3s ease-in-out;
   }
+}
+
+@layer utilities {
+  /* Type utilities */
+  .mono {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-feature-settings: "ss02";
+  }
+  .serif {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -0.005em;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    padding: 9px 16px 9px 18px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--acc);
+    border-radius: 99px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.005em;
+    transition: all .2s;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--acc);
+  }
+  .btn-primary,
+  .btn-primary:hover,
+  .btn-primary:focus,
+  .btn-primary:active {
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    background: var(--acc-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -8px rgba(15, 23, 42, .4);
+  }
+  .btn-primary svg { transition: transform .2s; }
+  .btn-primary:hover svg { transform: translateX(2px); }
+
+  .btn-ghost {
+    padding: 9px 18px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line-2);
+    border-radius: 99px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .2s;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .btn-ghost,
+  .btn-ghost:hover,
+  .btn-ghost:focus,
+  .btn-ghost:active { color: var(--ink); }
+  .btn-ghost:hover {
+    background: var(--bg-raise-2);
+    border-color: var(--ink-3);
+  }
+}
+
+/* Caret blink (Hero / CodeShowcase) */
+@keyframes cblink {
+  50% { opacity: 0; }
+}
+.caret { animation: cblink 1s steps(1) infinite; }
+
+/* BuiltFor tab panel fade-in */
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.panel-anim { animation: panelIn .45s both; }
+
+/* IllSubs cadence text swap */
+@keyframes cadenceSwap {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Section/card hover effects (named hooks set on TSX articles/anchors) */
+.pillar { transition: background .3s; }
+.pillar:hover { background: var(--bg-raise-2); }
+.pillar:hover .pillar-icon {
+  background: var(--acc);
+  color: var(--bg);
+  border-color: var(--acc);
+  transform: rotate(-6deg);
+}
+
+.stackcell { transition: background .25s; }
+.stackcell:hover { background: var(--bg-raise-2); }
+.stackcell:hover .stack-icon {
+  background: var(--acc);
+  color: var(--bg);
+  border-color: var(--acc);
+  transform: rotate(-6deg);
+}
+
+.infracard:hover {
+  border-color: var(--acc);
+  transform: translateY(-3px);
+}
+
+.ctac:hover { transform: translateY(-3px); }
+
+.navlink:hover {
+  background: var(--bg-raise-2);
+  color: var(--ink);
+}
+
+/* Section-title hook for design-system-wide overrides. Sizing/weight live in
+   <SectionHead>; bespoke <h2> elements (e.g. FAQ) can opt-in by adding this class. */
+.rs-section-title {}
+
+/* Contact section (preserved verbatim — needs its own responsive overrides because the file isn't being refactored) */
+@media (max-width: 1024px) {
+  #contact { grid-template-columns: 1fr !important; }
+  #contact > div, #contact > form { padding: 64px 40px !important; }
+}
+@media (max-width: 720px) {
+  #contact > div, #contact > form { padding: 56px 24px !important; }
+  #contact form > div { grid-template-columns: 1fr !important; gap: 16px !important; }
 }

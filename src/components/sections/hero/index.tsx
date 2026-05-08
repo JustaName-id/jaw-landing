@@ -1,150 +1,68 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
-// import Image from "next/image";
-import {
-  heroHeading,
-  heroSubtitle,
-  heroCTA,
-  staggerDelays,
-} from "@/lib/animations";
-import { useEffect, useState } from "react";
+
+const checklist = [
+  "Invisible web3 infrastructure",
+  "Onchain agent & automation",
+  "Customizable solutions",
+  "No onboarding friction",
+];
 
 export const Hero = () => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <section className=" pt-40 md:pt-20  pb-16 flex justify-center px-4 md:px-6 bg-white relative overflow-hidden min-h-[calc(100vh+50px)] md:min-h-[calc(100vh+50px)]">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <img
-          src="/assets/hero-bg.png"
-          alt=""
-          className="absolute w-full h-full object-cover opacity-[0.03]"
-        />
-      </div>
+    <section className="relative flex items-center overflow-hidden border-b border-[var(--line)] min-h-[92vh] max-md:min-h-0 max-md:py-0">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-no-repeat bg-[right_-4%_center] bg-[length:auto_95%] opacity-[0.14] max-lg:bg-[length:auto_100%] max-lg:bg-center max-lg:opacity-[0.11] max-md:bg-[center_70%] max-md:bg-[length:auto_95%] max-md:opacity-[0.09]"
+        style={{ backgroundImage: "url(/assets/hero-bg.png)" }}
+      />
 
-      <div className="max-w-[1100px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8 relative">
-        {/* Left Content */}
-        <div className="flex-1 md:mt-8 text-center lg:mt-12">
-          <h1
-            className={`text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-[36px] md:leading-[44px] lg:leading-[52px] mb-6 font-['Space_Grotesk',sans-serif] text-[#0a0a0a] ${mounted ? heroHeading : "opacity-0"}`}
-          >
-            Access Onchain Capabilities
-            <br />
-            Without Carrying its <br />
-            <span
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage:
-                  "linear-gradient(90deg, #135bec 0%, #135bec 100%)",
-              }}
-            >
-              Complexity
-            </span>
-          </h1>
-          <p
-            className={`text-gray-500 text-lg leading-7 mb-8 max-w-[85%] mx-auto ${mounted ? heroSubtitle : "opacity-0"}`}
-          >
-            Identity-centric infrastructure for the smart account era, designed
-            to absorb wallet and account overhead so products can focus on
-            users, not systems.
-          </p>
+      <div className="relative mx-auto w-full max-w-[1260px] px-5 pb-16 pt-32 md:px-6 md:py-30 lg:px-8 lg:py-[140px] max-md:flex max-md:flex-col max-md:items-center">
+        <h1 className="m-0 mb-6 max-w-[24ch] font-medium tracking-[-0.04em] leading-[1.05] text-[clamp(40px,7vw,64px)] [text-wrap:balance] max-md:max-w-full max-md:text-center max-md:tracking-[-0.03em] max-md:text-[clamp(28px,8vw,44px)] max-[380px]:text-[26px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <span className="md:whitespace-nowrap">
+            Access Onchain <span className="serif">Capabilities</span>
+          </span>{" "}
+          <br className="max-md:hidden" />
+          Without Carrying its <br className="max-md:hidden" />
+          <span className="text-[var(--hero-electric)]">Complexity</span>
+        </h1>
 
-          {/* Checklist */}
-          <ul className="flex flex-col md:flex-row md:flex-wrap md:justify-center gap-x-6 gap-y-3 mb-8 max-w-[90%] mx-auto">
-            <li
-              className={`flex items-center gap-2 ${mounted ? `animate-in fade-in duration-500 ${staggerDelays[200]}` : "opacity-0"}`}
-            >
-              <Check
-                className="w-5 h-5  text-[#4f46e5] flex-shrink-0"
-                strokeWidth={2}
-              />
-              <span className="text-gray-900 font-medium whitespace-nowrap">
-                Invisible web3 infrastructure
-              </span>
-            </li>
-            <li
-              className={`flex items-center gap-2 ${mounted ? `animate-in fade-in duration-500 ${staggerDelays[300]}` : "opacity-0"}`}
-            >
-              <Check
-                className="w-5 h-5 text-[#4f46e5] flex-shrink-0"
-                strokeWidth={2}
-              />
-              <span className="text-gray-900 font-medium whitespace-nowrap">
-                Onchain agent & automation
-              </span>
-            </li>
-            <li
-              className={`flex items-center gap-2 ${mounted ? `animate-in fade-in duration-500 ${staggerDelays[400]}` : "opacity-0"}`}
-            >
-              <Check
-                className="w-5 h-5 text-[#4f46e5] flex-shrink-0"
-                strokeWidth={2}
-              />
-              <span className="text-gray-900 font-medium whitespace-nowrap">
-                Customizable solutions
-              </span>
-            </li>
-            <li
-              className={`flex items-center gap-2 ${mounted ? `animate-in fade-in duration-500 ${staggerDelays[500]}` : "opacity-0"}`}
-            >
-              <Check
-                className="w-5 h-5 text-[#4f46e5] flex-shrink-0"
-                strokeWidth={2}
-              />
-              <span className="text-gray-900 font-medium whitespace-nowrap">
-                No onboarding friction
-              </span>
-            </li>
-          </ul>
+        <p className="m-0 mb-8 max-w-[560px] text-[20px] leading-[1.55] text-[var(--ink-2)] max-md:text-center max-md:text-base animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both">
+          Identity-centric infrastructure for the smart account era, designed to
+          absorb wallet and account overhead so products can focus on users, not
+          systems.
+        </p>
 
-          {/* CTAs */}
-          <div
-            className={`flex items-center mx-auto w-fit gap-3 ${mounted ? heroCTA : "opacity-0"}`}
+        <ul className="m-0 mb-9 grid list-none p-0 grid-cols-[repeat(2,max-content)] gap-x-10 gap-y-3 max-md:grid-cols-1 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-both">
+          {checklist.map((item) => (
+            <li
+              key={item}
+              className="inline-flex items-center gap-2.5 text-[18px] font-medium text-[var(--ink)]"
+            >
+              <span className="grid place-items-center size-[18px] shrink-0 rounded-full bg-[var(--acc-soft)] text-[var(--acc)]">
+                <Check size={10} strokeWidth={2.4} />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex gap-3 max-md:gap-3.5 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-both">
+          <a
+            href="https://dashboard.jaw.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary px-[22px] py-[13px] text-[18px] max-md:text-base"
           >
-            <Button
-              asChild
-              className="bg-[#171717] text-white hover:bg-gray-800 h-9"
-            >
-              <a
-                href="https://dashboard.jaw.id"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get Started
-              </a>
-            </Button>
-            <Button
-              variant="ghost"
-              asChild
-              className="text-gray-900 hover:text-gray-700 hover:bg-transparent"
-            >
-              <a href="#contact" className="flex items-center gap-2">
-                Contact Us
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </Button>
-          </div>
+            Get Started <ArrowRight size={14} />
+          </a>
+          <a
+            href="#contact"
+            className="btn-ghost px-5 py-[13px] text-[18px] max-md:!border-0 max-md:!bg-transparent max-md:px-1.5 max-md:text-base"
+          >
+            Contact Us
+          </a>
         </div>
       </div>
-
-      {/* Right Illustration - positioned to the right */}
-      {/*<div className="hidden lg:block absolute right-[10%] top-1/2 -translate-y-1/2 w-[516px] h-[516px]">*/}
-      {/*  <Image*/}
-      {/*    src="/assets/hero-illustration.png"*/}
-      {/*    alt="JAW.ID Platform Illustration"*/}
-      {/*    width={516}*/}
-      {/*    height={516}*/}
-      {/*    priority={true}*/}
-      {/*    className="w-full h-full object-contain"*/}
-      {/*  />*/}
-      {/*</div>*/}
     </section>
   );
 };

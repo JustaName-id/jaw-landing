@@ -1,68 +1,83 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface ScrollRevealProps {
   children: ReactNode;
-  className?: string;
+  /** ms delay before the transition starts after entering the viewport */
   delay?: number;
+  /** IntersectionObserver threshold 0..1 */
   threshold?: number;
+  /** if true, fires once and stops observing */
   once?: boolean;
+  /** transition duration in ms */
+  duration?: number;
+  /** vertical offset to slide in from, in px */
+  offset?: number;
+  className?: string;
+  /** when true, render children with no animation wrapper styles
+   *  (e.g. user prefers-reduced-motion or you want to disable inline) */
+  disabled?: boolean;
 }
 
-/**
- * ScrollReveal component for scroll-triggered animations
- * Uses Intersection Observer API for performance
- */
 export const ScrollReveal = ({
   children,
-  className = "",
   delay = 0,
-  threshold = 0.1,
+  threshold = 0.15,
   once = true,
+  duration = 700,
+  offset = 16,
+  className,
+  disabled = false,
 }: ScrollRevealProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   useEffect(() => {
-    const element = elementRef.current;
-    if (!element) return;
+    if (typeof window === "undefined") return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setShouldAnimate(false);
+      setVisible(true);
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              setIsVisible(true);
-            }, delay);
-
-            if (once) {
-              observer.unobserve(entry.target);
-            }
-          } else if (!once) {
-            setIsVisible(false);
-          }
-        });
+    const node = ref.current;
+    if (!node) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          if (once) obs.disconnect();
+        } else if (!once) {
+          setVisible(false);
+        }
       },
-      {
-        threshold,
-        rootMargin: "0px 0px -50px 0px", // Trigger slightly before element enters viewport
-      }
+      { threshold },
     );
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, [threshold, once]);
 
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [delay, threshold, once]);
+  if (disabled || !shouldAnimate) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <div
-      ref={elementRef}
-      className={`transition-opacity duration-500 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      } ${className}`}
+      ref={ref}
+      className={cn(
+        "transition-[opacity,transform] ease-out will-change-[opacity,transform]",
+        visible ? "opacity-100 translate-y-0" : "opacity-0",
+        className,
+      )}
+      style={{
+        transitionDelay: `${delay}ms`,
+        transitionDuration: `${duration}ms`,
+        transform: visible ? undefined : `translateY(${offset}px)`,
+      }}
     >
       {children}
     </div>

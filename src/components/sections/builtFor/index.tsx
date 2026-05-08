@@ -1,23 +1,35 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState, type ReactNode } from "react";
 import {
   CreditCard,
   Building2,
   Bot,
   CalendarCheck,
   Blocks,
+  Check,
   type LucideIcon,
-} from "lucide-react"
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Section } from "@/components/section";
+import { SectionHead } from "@/components/sectionHead";
+import {
+  IllNeobank,
+  IllTradfi,
+  IllAgents,
+  IllSubs,
+  IllDapps,
+} from "./illustrations";
+import { StaticMotionSvg } from "@/components/animations/StaticMotionSvg";
 
 interface Tab {
-  id: string
-  label: string
-  icon: LucideIcon
-  title: string
-  description: string
-  useCases: string[]
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  useCases: string[];
+  Ill: () => ReactNode;
 }
 
 const tabs: Tab[] = [
@@ -34,9 +46,10 @@ const tabs: Tab[] = [
       "Branded crypto exposure",
       "DeFi-backed savings",
     ],
+    Ill: IllNeobank,
   },
   {
-    id: "tradfi enterprise",
+    id: "tradfi",
     label: "TradFi Enterprise",
     icon: Building2,
     title: "TradFi Enterprise",
@@ -48,6 +61,7 @@ const tabs: Tab[] = [
       "Institutional DeFi access",
       "Yield without custodians",
     ],
+    Ill: IllTradfi,
   },
   {
     id: "ai-agents",
@@ -62,6 +76,7 @@ const tabs: Tab[] = [
       "Portfolio managers",
       "DeFi strategists",
     ],
+    Ill: IllAgents,
   },
   {
     id: "subscriptions",
@@ -76,6 +91,7 @@ const tabs: Tab[] = [
       "Gaming passes",
       "DeFi vaults",
     ],
+    Ill: IllSubs,
   },
   {
     id: "dapps",
@@ -90,97 +106,117 @@ const tabs: Tab[] = [
       "Social apps",
       "Creator platforms",
     ],
+    Ill: IllDapps,
   },
-]
+];
 
 export const BuiltFor = () => {
-  const [activeTab, setActiveTab] = useState("neobanks");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [active, setActive] = useState("neobanks");
+  const current = tabs.find((t) => t.id === active) ?? tabs[0];
+  const Illust = current.Ill;
 
   return (
-    <section
-      className="py-16 md:py-28 px-4 md:px-6"
-      style={{ background: "#0a0a0a" }}
-    >
-      <div className="max-w-[900px] mx-auto">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-4xl font-bold text-white mb-4 font-['Space_Grotesk',sans-serif]">
-            Built For
-          </h2>
-          <p className="text-gray-400 text-base">
-            From consumer apps to enterprise solutions, JAW adapts to your
-            needs.
-          </p>
-        </div>
+    <Section variant="diag">
+      <SectionHead
+        align="center"
+        title={
+          <>
+            Built <span className="serif text-[var(--acc)]">for.</span>
+          </>
+        }
+        sub="From consumer apps to enterprise solutions, JAW adapts to your needs."
+      />
 
-        {/* Tabs */}
-        <Tabs
-          defaultValue="neobanks"
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="w-full"
-        >
-          <TabsList className="w-full h-auto bg-white/[0.05] rounded-lg p-3 border border-white/10 mb-6 grid grid-cols-3 md:inline-flex md:flex-row w-full gap-2">
-            {tabs.map((tab) => {
-              const Icon = tab.icon
-              return (
-                <TabsTrigger
-                  key={tab.id}
-                  value={tab.id}
-                  className="cursor-pointer h-auto max-md:min-h-[60px] md:h-9 data-[state=active]:bg-white/10 data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-white/20 text-gray-500 hover:text-gray-300 px-2 md:px-4 py-2 rounded-md transition-all text-[11px] md:text-sm flex flex-col md:flex-row items-center justify-center gap-1.5 md:gap-2"
-                >
-                  <Icon className="w-4 h-4 md:w-4 md:h-4 flex-shrink-0" />
-                  <span className="font-medium text-center leading-tight md:whitespace-nowrap">{tab.label}</span>
-                </TabsTrigger>
-              )
-            })}
-          </TabsList>
-
-          {tabs.map((tab) => {
-            const Icon = tab.icon
-            return (
-              <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                <div className="bg-white/[0.03] border border-white/10 rounded-xl p-5 md:p-8 transition-opacity duration-300">
-                  <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-lg flex items-center justify-center text-black flex-shrink-0">
-                      <Icon className="w-5 h-5 md:w-6 md:h-6" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold font-['Space_Grotesk',sans-serif] text-white">
-                      {tab.title}
-                    </h3>
-                  </div>
-
-                  <p className="text-gray-400 mb-6 md:mb-8 leading-relaxed text-sm md:text-base transition-opacity duration-200">
-                    {tab.description}
-                  </p>
-
-                  <div>
-                    <p className="font-semibold text-sm mb-3 md:mb-4 text-white">
-                      Example Use Cases:
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 md:gap-y-3">
-                      {tab.useCases.map((useCase, index) => (
-                        <div
-                          key={index}
-                          className="flex items-start gap-3 text-gray-400 text-sm"
-                        >
-                          <span className="w-2 h-2 bg-white rounded-full flex-shrink-0 mt-1.5" />
-                          {useCase}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
-            )
-          })}
-        </Tabs>
+      {/* Desktop / tablet pill tabs */}
+      <div className="mx-auto mb-8 hidden w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-[var(--line)] bg-[var(--bg-raise)] p-1 md:flex">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setActive(t.id)}
+            className={cn(
+              "cursor-pointer whitespace-nowrap rounded-full border-none px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200",
+              active === t.id
+                ? "bg-[var(--ink)] text-[var(--bg)]"
+                : "bg-transparent text-[var(--ink-2)] hover:text-[var(--ink)]",
+            )}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
-    </section>
-  )
-}
+
+      {/* Mobile icon grid selector */}
+      <div className="mx-auto mb-6 max-w-full md:hidden">
+        <div className="grid grid-cols-3 gap-1.5 rounded-2xl border border-[var(--line)] bg-[var(--bg-raise)] p-1.5">
+          {tabs.map((t) => {
+            const isActive = active === t.id;
+            const Icon = t.icon;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setActive(t.id)}
+                className={cn(
+                  "flex min-h-[56px] cursor-pointer flex-col items-center justify-center gap-1 rounded-[8px] border-none px-1 py-2 transition-all duration-200",
+                  isActive
+                    ? "bg-[var(--ink)] text-[var(--bg)]"
+                    : "bg-transparent text-[var(--ink-2)]",
+                )}
+              >
+                <span
+                  className={cn(
+                    "inline-flex",
+                    isActive ? "opacity-100" : "opacity-75",
+                  )}
+                >
+                  <Icon size={16} strokeWidth={1.6} />
+                </span>
+                <span className="text-center text-[10.5px] font-medium leading-tight tracking-[-0.005em]">
+                  {t.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div
+        key={active}
+        className="panel-anim grid grid-cols-1 overflow-hidden rounded-[20px] border border-[var(--line)] bg-[#FEFEFE] lg:grid-cols-[1.3fr_1fr]"
+      >
+        <div className="border-b border-[var(--line)] p-6 md:p-11 lg:border-b-0 lg:border-r">
+          <h3 className="m-0 mb-4 text-[26px] font-medium tracking-[-0.02em]">
+            {current.title}
+          </h3>
+          <p className="m-0 mb-7 max-w-[520px] text-base leading-[1.6] text-[var(--ink-2)]">
+            {current.description}
+          </p>
+          <div className="mono mb-3.5 text-[11px] uppercase tracking-[0.12em] text-[var(--ink-3)]">
+            Example use cases
+          </div>
+          <ul className="m-0 grid list-none grid-cols-1 gap-2.5 p-0 md:grid-cols-2">
+            {current.useCases.map((c) => (
+              <li
+                key={c}
+                className="flex items-center gap-2.5 text-sm text-[var(--ink)]"
+              >
+                <span className="grid size-3.5 place-items-center rounded-full bg-[var(--acc-soft)] text-[var(--acc)]">
+                  <Check size={9} strokeWidth={2.4} />
+                </span>
+                {c}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex flex-col gap-5 bg-[#FEFEFE] p-6 md:p-11">
+          <div className="grid flex-1 min-h-[340px] place-items-center">
+            <StaticMotionSvg>
+              <Illust />
+            </StaticMotionSvg>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+};

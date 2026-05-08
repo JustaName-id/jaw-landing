@@ -13,9 +13,8 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: "Validation failed",
-          details: validationResult.error.flatten(),
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,7 +34,7 @@ export async function POST(request: NextRequest) {
           success: false,
           error: "Server configuration error",
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -50,7 +49,7 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    // Send to Strapi
+    // Send to Strapi (5s timeout)
     const strapiResponse = await fetch(`${strapiUrl}/api/jaw-contacts`, {
       method: "POST",
       headers: {
@@ -58,6 +57,7 @@ export async function POST(request: NextRequest) {
         Authorization: `Bearer ${strapiToken}`,
       },
       body: JSON.stringify(strapiData),
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!strapiResponse.ok) {
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
           success: false,
           error: "Failed to submit contact form",
         },
-        { status: strapiResponse.status }
+        { status: 502 },
       );
     }
 
@@ -85,7 +85,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "Contact form submitted successfully",
-      data: strapiResult.data,
     });
   } catch (error) {
     console.error("Unexpected error in contact API:", error);
@@ -94,7 +93,7 @@ export async function POST(request: NextRequest) {
         success: false,
         error: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

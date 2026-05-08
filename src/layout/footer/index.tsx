@@ -5,7 +5,7 @@ export const Footer = () => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                     {/* Left Links */}
                     <div className="flex items-center gap-6 md:gap-8">
-                        <a href="#" className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base">
+                        <a href="/" className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base">
                             Home
                         </a>
                         <a href="https://justaname.id/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base">
@@ -13,6 +13,9 @@ export const Footer = () => {
                         </a>
                         <a href="https://justalab.co/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base">
                             JustaLab
+                        </a>
+                        <a href="/privacy-policy" className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base">
+                            Privacy
                         </a>
                     </div>
 
