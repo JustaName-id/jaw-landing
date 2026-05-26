@@ -1,4 +1,8 @@
-import { ArrowRight, Check } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
+import { TryItNowDialog } from "./try-it-now-dialog";
 
 const checklist = [
   "Invisible web3 infrastructure",
@@ -8,6 +12,8 @@ const checklist = [
 ];
 
 export const Hero = () => {
+  const [demoOpen, setDemoOpen] = useState(false);
+
   return (
     <section className="relative flex items-center overflow-hidden border-b border-[var(--line)] min-h-[92vh] max-md:min-h-0 max-md:py-0">
       <div
@@ -46,12 +52,19 @@ export const Hero = () => {
           ))}
         </ul>
 
-        <div className="flex gap-3 max-md:gap-3.5 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-both">
+        <div className="flex flex-wrap gap-3 max-md:gap-3.5 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-both">
+          <button
+            type="button"
+            onClick={() => setDemoOpen(true)}
+            className="btn-primary px-[22px] py-[13px] text-[18px] max-md:text-base"
+          >
+            <Sparkles size={14} /> Try it now
+          </button>
           <a
             href="https://dashboard.jaw.id"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary px-[22px] py-[13px] text-[18px] max-md:text-base"
+            className="btn-ghost px-5 py-[13px] text-[18px] max-md:text-base"
           >
             Get Started <ArrowRight size={14} />
           </a>
@@ -63,6 +76,8 @@ export const Hero = () => {
           </a>
         </div>
       </div>
+
+      <TryItNowDialog open={demoOpen} onOpenChange={setDemoOpen} />
     </section>
   );
 };
