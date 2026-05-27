@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { HeroDemo } from "./hero-demo";
+import { HeroDemoLauncher } from "./hero-demo-launcher";
 
 export const Hero = () => {
   return (
@@ -43,7 +43,7 @@ export const Hero = () => {
         </div>
 
         <div className="flex justify-center lg:justify-end animate-in fade-in slide-in-from-bottom-6 duration-700 delay-500 fill-mode-both">
-          <HeroDemo />
+          <HeroDemoLauncher />
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -10,6 +10,7 @@ import {
   ExternalLink,
   Loader2,
   LogOut,
+  RefreshCw,
 } from "lucide-react";
 import {
   useAccount,
@@ -55,7 +56,7 @@ const justaName = JustaName.init({
     : {}),
 });
 
-export const HeroDemo = () => {
+export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
   const config = useConfig();
   const { address, isConnected } = useAccount();
   const {
@@ -162,12 +163,12 @@ export const HeroDemo = () => {
     };
   }, []);
 
-  // On entering the fund step, ask the server to drop testnet USDC in. Guarded
-  // so React's double-invoked effects don't fund twice.
-  useEffect(() => {
-    if (step !== "fund" || !address || fundRequested.current) return;
+  // Ask the server to drop testnet USDC into the connected account.
+  const requestFunding = useCallback(() => {
+    if (!address) return;
     fundRequested.current = true;
     setFundError(undefined);
+    setFundTxHash(undefined);
     fetch("/api/fund", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -179,7 +180,14 @@ export const HeroDemo = () => {
         setFundTxHash(data.txHash);
       })
       .catch((err: Error) => setFundError(err.message));
-  }, [step, address]);
+  }, [address]);
+
+  // On entering the fund step, fund once. Guarded so React's double-invoked
+  // effects don't fund twice.
+  useEffect(() => {
+    if (step !== "fund" || !address || fundRequested.current) return;
+    requestFunding();
+  }, [step, address, requestFunding]);
 
   // fund -> send once the USDC lands
   useEffect(() => {
@@ -228,7 +236,13 @@ export const HeroDemo = () => {
   const handleDisconnect = () => disconnect();
 
   return (
-    <div className="w-full max-w-[440px] rounded-2xl border border-[var(--line)] bg-[var(--bg)] p-6 shadow-xl shadow-black/[0.04] md:p-7">
+    <div
+      className={
+        framed
+          ? "w-full max-w-[440px] rounded-2xl border border-[var(--line)] bg-[var(--bg)] p-6 shadow-xl shadow-black/[0.04] md:p-7"
+          : "w-full"
+      }
+    >
       <div className="mb-6 flex items-start justify-between">
         <div>
           <h2 className="text-[20px] font-medium tracking-[-0.02em] text-[var(--ink)]">
@@ -272,6 +286,7 @@ export const HeroDemo = () => {
                 onCopy={handleCopy}
                 fundTxHash={fundTxHash}
                 error={fundError}
+                onRetry={requestFunding}
               />
             )}
             {step === "send" && (
@@ -391,14 +406,30 @@ const FundStep = ({
   onCopy,
   fundTxHash,
   error,
+  onRetry,
 }: {
   address: `0x${string}`;
   copied: boolean;
   onCopy: () => void;
   fundTxHash?: string;
   error?: string;
+  onRetry: () => void;
 }) => {
-  if (error) return <Fallback message={`Couldn't fund the account: ${error}`} />;
+  if (error)
+    return (
+      <div className="flex flex-col gap-4 py-2">
+        <p className="text-[15px] leading-[1.5] text-[var(--ink-2)]">
+          Couldn&rsquo;t fund the account: {error}
+        </p>
+        <button
+          type="button"
+          onClick={onRetry}
+          className="btn-primary w-full justify-center px-4 py-3 text-[15px]"
+        >
+          <RefreshCw size={14} /> Try again
+        </button>
+      </div>
+    );
 
   return (
     <>
