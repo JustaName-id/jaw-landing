@@ -1,6 +1,5 @@
 import {
   Hero,
-  Pillars,
   BuiltFor,
   Features,
   BentoGrid,
@@ -18,7 +17,6 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <HomeFAQJsonLd />
       <Hero />
-      <Pillars />
       <BuiltFor />
       <Features />
       <BentoGrid />

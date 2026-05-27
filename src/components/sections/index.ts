@@ -1,5 +1,4 @@
 export * from "./hero";
-export * from "./pillars";
 export * from "./builtFor";
 export * from "./features";
 export * from "./bentoGrid";

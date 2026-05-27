@@ -7,6 +7,7 @@ import { Footer } from "@/layout/footer";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { WebMcp } from "@/components/agent/web-mcp";
+import { JawProvider } from "@/components/providers/jaw-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -92,9 +93,11 @@ export default function RootLayout({
           Skip to main content
         </a>
         <ToastProvider />
-        <Navbar />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <JawProvider>
+          <Navbar />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </JawProvider>
         <Analytics />
       </body>
     </html>
