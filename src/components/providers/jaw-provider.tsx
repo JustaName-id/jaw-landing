@@ -6,8 +6,7 @@ import { baseSepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { jaw } from "@jaw.id/wagmi";
 import { Mode } from "@jaw.id/core";
-import { ReactUIHandler } from "@jaw.id/ui";
-import { JAW_API_KEY } from "@/lib/jaw-demo";
+import { CHAIN_ID, JAW_API_KEY, JAW_ENS } from "@/lib/jaw-demo";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +17,16 @@ const buildConfig = () =>
       jaw({
         apiKey: JAW_API_KEY,
         appName: "JAW",
+        // Report Base Sepolia as the active chain so wagmi/viem can resolve it
+        // from the configured chains (otherwise it defaults to mainnet = 1).
+        defaultChainId: CHAIN_ID,
         preference: {
-          mode: Mode.AppSpecific,
-          uiHandler: new ReactUIHandler(),
+          mode: Mode.CrossPlatform,
+          // Base Sepolia is a testnet; without this the provider only
+          // registers mainnet chains and rejects 84532 ("Chain not supported").
+          showTestnets: true,
+          // Issue a subname under this domain for each connected account.
+          ...(JAW_ENS ? { ens: JAW_ENS } : {}),
         },
       }),
     ],

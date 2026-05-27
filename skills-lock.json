@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "jaw-sdk-best-practices": {
+      "source": "JustaName-id/jaw-skills",
+      "sourceType": "github",
+      "skillPath": "jaw-sdk-best-practices/SKILL.md",
+      "computedHash": "08c5321fef465535fe38c99f52d601489f8b2f1be49e8205b0310cf3f21bc7b2"
+    }
+  }
+}

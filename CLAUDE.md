@@ -183,13 +183,19 @@ element?.scrollIntoView({ behavior: "smooth" });
 - **`postcss.config.mjs`**: PostCSS with Tailwind CSS 4 plugin
 - **`package.json`**: Dependencies and scripts (uses Bun)
 
-## No External Dependencies
+## Backend & External Dependencies
 
-This is a static landing page with:
-- No database connections
-- No external API calls
-- No environment variables required
-- No state management libraries (no Redux, Zustand, Context API)
+The page is mostly static, but the hero carries a live JAW demo:
+- **`/api/fund` route handler** (`src/app/api/fund/route.ts`): server-only, signs a
+  testnet USDC transfer from a funder EOA into freshly created demo accounts.
+- **Env vars** (see `.env.example`): `NEXT_PUBLIC_JAW_API_KEY`, the two
+  `NEXT_PUBLIC_DEMO_RECIPIENT_*` addresses, `TREASURY_PRIVATE_KEY` (server-only —
+  never `NEXT_PUBLIC_`), and an optional `BASE_SEPOLIA_RPC_URL`.
+- **Onchain calls** via wagmi/viem + the `@jaw.id/*` SDK (Base Sepolia only).
+- No database connections.
+- No state management libraries (no Redux, Zustand, Context API) beyond wagmi/react-query.
+
+Everything else on the page remains static with no external API calls.
 
 ## Git Workflow
 
