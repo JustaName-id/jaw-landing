@@ -336,7 +336,12 @@ const StepIndicator = ({ step }: { step: Step }) => {
         const isDone = i < activeIndex || step === "done";
         const isActive = i === activeIndex && step !== "done";
         return (
-          <li key={s.key} className="flex flex-1 items-center gap-2">
+          <li
+            key={s.key}
+            className={`flex items-center gap-2 ${
+              i < steps.length - 1 ? "flex-1" : "flex-none"
+            }`}
+          >
             <span
               className={`grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-medium ${
                 isDone
@@ -346,7 +351,11 @@ const StepIndicator = ({ step }: { step: Step }) => {
                   : "border border-[var(--line-2)] text-[var(--ink-3)]"
               }`}
             >
-              {isDone ? <Check size={12} strokeWidth={2.6} /> : i + 1}
+              {isDone && step !== "done" ? (
+                <Check size={12} strokeWidth={2.6} />
+              ) : (
+                i + 1
+              )}
             </span>
             <span
               className={`text-[13px] font-medium ${
