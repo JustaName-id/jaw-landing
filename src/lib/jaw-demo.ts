@@ -24,7 +24,7 @@ export const FUNDER_FLOOR_USDC = "1";
 
 // Skip funding an account that already holds at least this much USDC — it has
 // enough to run the demo, so there's no need to spend more treasury funds.
-export const ALREADY_FUNDED_USDC = "1";
+export const ALREADY_FUNDED_USDC = "0.2";
 
 export const JAW_API_KEY = process.env.NEXT_PUBLIC_JAW_API_KEY ?? "";
 

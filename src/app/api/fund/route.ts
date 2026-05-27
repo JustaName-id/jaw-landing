@@ -89,7 +89,11 @@ export async function POST(request: Request) {
       args: [getAddress(address), parseUnits(FUND_AMOUNT_USDC, 6)],
     });
     return NextResponse.json({ txHash });
-  } catch {
-    return NextResponse.json({ error: "Funding failed" }, { status: 500 });
+  } catch (err) {
+    console.error("[/api/fund] transfer failed:", err);
+    const message =
+      (err as { shortMessage?: string })?.shortMessage ??
+      (err instanceof Error ? err.message : "Funding failed");
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
