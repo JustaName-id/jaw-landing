@@ -11,6 +11,7 @@ import {
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
 import {
+  ALREADY_FUNDED_USDC,
   FUND_AMOUNT_USDC,
   FUNDER_FLOOR_USDC,
   USDC_ADDRESS,
@@ -49,6 +50,17 @@ export async function POST(request: Request) {
     chain: baseSepolia,
     transport: http(rpcUrl),
   });
+
+  // Skip funding if the account already holds enough to run the demo.
+  const recipientBalance = await publicClient.readContract({
+    address: USDC_ADDRESS,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [getAddress(address)],
+  });
+  if (recipientBalance >= parseUnits(ALREADY_FUNDED_USDC, 6)) {
+    return NextResponse.json({ skipped: true });
+  }
 
   // Guardrail: refuse below a floor so the demo never half-funds an account.
   const funderBalance = await publicClient.readContract({

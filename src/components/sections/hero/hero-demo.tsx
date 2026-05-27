@@ -27,8 +27,10 @@ import {
   DEMO_RECIPIENT_1,
   DEMO_RECIPIENT_2,
   ENS_CHAIN_ID,
+  ENS_RPC_URL,
   JAW_ENS,
-  SEND_AMOUNT_USDC,
+  SEND_AMOUNT_1,
+  SEND_AMOUNT_2,
   USDC_ADDRESS,
   basescanTxUrl,
   isDemoConfigured,
@@ -38,14 +40,20 @@ import {
 type Step = "connect" | "fund" | "send" | "done";
 
 const DASHBOARD_URL = "https://dashboard.jaw.id";
+const DOCS_URL = "https://docs.jaw.id";
 
 // Singleton JustaName client for reverse-resolving the connected account's
 // subname (address → e.g. "alice.justan.id").
-const justaName = JustaName.init(
-  JAW_ENS
+const justaName = JustaName.init({
+  // The L1 the ENS domain/resolver lives on (mainnet or Sepolia).
+  defaultChainId: ENS_CHAIN_ID,
+  ...(JAW_ENS
     ? { ensDomains: [{ chainId: ENS_CHAIN_ID, ensDomain: JAW_ENS }] }
-    : undefined
-);
+    : {}),
+  ...(ENS_RPC_URL
+    ? { networks: [{ chainId: ENS_CHAIN_ID, providerUrl: ENS_RPC_URL }] }
+    : {}),
+});
 
 export const HeroDemo = () => {
   const config = useConfig();
@@ -69,6 +77,10 @@ export const HeroDemo = () => {
   const [fundTxHash, setFundTxHash] = useState<string>();
   const [fundError, setFundError] = useState<string>();
   const [ensName, setEnsName] = useState<string | null>(null);
+  const [recipientNames, setRecipientNames] = useState<{
+    r1: string | null;
+    r2: string | null;
+  }>({ r1: null, r2: null });
   const fundRequested = useRef(false);
 
   const balance = useReadContract({
@@ -120,7 +132,7 @@ export const HeroDemo = () => {
     }
     let cancelled = false;
     justaName.subnames
-      .reverseResolve({ address, chainId: ENS_CHAIN_ID })
+      .reverseResolve({ address, chainId: CHAIN_ID })
       .then((name) => {
         if (!cancelled) setEnsName(name);
       })
@@ -131,6 +143,24 @@ export const HeroDemo = () => {
       cancelled = true;
     };
   }, [isConnected, address]);
+
+  // Reverse-resolve the (static) demo recipients to their subnames once.
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      justaName.subnames
+        .reverseResolve({ address: DEMO_RECIPIENT_1, chainId: CHAIN_ID })
+        .catch(() => null),
+      justaName.subnames
+        .reverseResolve({ address: DEMO_RECIPIENT_2, chainId: CHAIN_ID })
+        .catch(() => null),
+    ]).then(([r1, r2]) => {
+      if (!cancelled) setRecipientNames({ r1, r2 });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // On entering the fund step, ask the server to drop testnet USDC in. Guarded
   // so React's double-invoked effects don't fund twice.
@@ -168,14 +198,16 @@ export const HeroDemo = () => {
   };
 
   const handleSend = () => {
-    const amount = parseUnits(SEND_AMOUNT_USDC, 6);
     sendCalls({
-      calls: [DEMO_RECIPIENT_1, DEMO_RECIPIENT_2].map((to) => ({
+      calls: [
+        { to: DEMO_RECIPIENT_1, amount: SEND_AMOUNT_1 },
+        { to: DEMO_RECIPIENT_2, amount: SEND_AMOUNT_2 },
+      ].map(({ to, amount }) => ({
         to: USDC_ADDRESS,
         data: encodeFunctionData({
           abi: erc20Abi,
           functionName: "transfer",
-          args: [to, amount],
+          args: [to, parseUnits(amount, 6)],
         }),
       })),
     });
@@ -247,6 +279,8 @@ export const HeroDemo = () => {
                 onSend={handleSend}
                 isSending={isSending}
                 error={sendError?.message}
+                r1Name={recipientNames.r1}
+                r2Name={recipientNames.r2}
               />
             )}
             {step === "done" && (
@@ -328,8 +362,8 @@ const ConnectStep = ({
 }) => (
   <>
     <p className="mb-5 text-[15px] leading-[1.5] text-[var(--ink-2)]">
-      Create a passkey-backed smart account in a secure popup. No seed phrase,
-      no extension.
+      No seed phrase. No extension. No download. Smart accounts with biometric
+      signing.
     </p>
     <button
       type="button"
@@ -343,7 +377,7 @@ const ConnectStep = ({
         </>
       ) : (
         <>
-          Sign in with a passkey <ArrowRight size={14} />
+          Sign In <ArrowRight size={14} />
         </>
       )}
     </button>
@@ -406,19 +440,29 @@ const SendStep = ({
   onSend,
   isSending,
   error,
+  r1Name,
+  r2Name,
 }: {
   onSend: () => void;
   isSending: boolean;
   error?: string;
+  r1Name: string | null;
+  r2Name: string | null;
 }) => (
   <>
     <p className="mb-4 text-[15px] leading-[1.5] text-[var(--ink-2)]">
-      Pay two people in one signature. JAW batches both transfers into a single
-      confirmation.
+      Batch transfers in one settlement. One approval, both payments land onchain
+      together, no repeated signing.
     </p>
     <div className="mb-5 space-y-2 rounded-xl border border-[var(--line)] bg-[var(--acc-soft)]/30 p-3 text-[13px]">
-      <Row label="To recipient 1" value={`${SEND_AMOUNT_USDC} USDC`} />
-      <Row label="To recipient 2" value={`${SEND_AMOUNT_USDC} USDC`} />
+      <Row
+        label={`To ${r1Name ?? shortenAddress(DEMO_RECIPIENT_1)}`}
+        value={`${SEND_AMOUNT_1} USDC`}
+      />
+      <Row
+        label={`To ${r2Name ?? shortenAddress(DEMO_RECIPIENT_2)}`}
+        value={`${SEND_AMOUNT_2} USDC`}
+      />
     </div>
     <button
       type="button"
@@ -428,11 +472,11 @@ const SendStep = ({
     >
       {isSending ? (
         <>
-          <Loader2 size={14} className="animate-spin" /> Confirming…
+          <Loader2 size={14} className="animate-spin" /> Sending…
         </>
       ) : (
         <>
-          Send both transfers <ArrowRight size={14} />
+          Send <ArrowRight size={14} />
         </>
       )}
     </button>
@@ -460,7 +504,8 @@ const DoneStep = ({
         <Check size={22} strokeWidth={2.6} />
       </span>
       <p className="text-[15px] font-medium text-[var(--ink)]">
-        Sent — two transfers, one signature.
+        Most teams stitch auth, accounts, and identity together. JAW handles all
+        three.
       </p>
       {txHash ? (
         <a
@@ -478,12 +523,22 @@ const DoneStep = ({
         </span>
       )}
     </div>
-    <button
-      type="button"
-      onClick={onTryAgain}
-      className="btn-ghost w-full justify-center px-4 py-3 text-[15px]"
-    >
-      Send again
-    </button>
+    <div className="flex flex-col gap-2.5">
+      <a
+        href={DOCS_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-primary w-full justify-center px-4 py-3 text-[15px]"
+      >
+        View Documentation <ArrowUpRight size={14} />
+      </a>
+      <button
+        type="button"
+        onClick={onTryAgain}
+        className="btn-ghost w-full justify-center px-4 py-3 text-[15px]"
+      >
+        Send Again
+      </button>
+    </div>
   </>
 );

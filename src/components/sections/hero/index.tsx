@@ -21,7 +21,7 @@ export const Hero = () => {
 
           <p className="m-0 mb-8 max-w-[44ch] text-[20px] leading-[1.55] text-[var(--ink-2)] max-md:text-base animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both">
             Identity-first infrastructure for the smart-account era: biometric
-            login, ENS identity, programmable permissions, and more...
+            login, ENS identity, and programmable permissions.
           </p>
 
           <div className="flex flex-wrap items-center gap-5 max-md:justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-both">
