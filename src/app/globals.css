@@ -250,6 +250,19 @@
 }
 .panel-anim { animation: panelIn .45s both; }
 
+/* Hero demo — "live" biometric fingerprint sensor (sign-in step) */
+@keyframes scanRipple {
+  0%   { transform: scale(.72); opacity: .5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.scan-ripple { animation: scanRipple 2.2s ease-out infinite; }
+
+@keyframes scanGlow {
+  0%, 100% { opacity: .3; transform: scale(.96); }
+  50%      { opacity: .65; transform: scale(1.04); }
+}
+.scan-glow { animation: scanGlow 2.2s ease-in-out infinite; }
+
 /* IllSubs cadence text swap */
 @keyframes cadenceSwap {
   0% { opacity: 0; transform: translateY(4px); }

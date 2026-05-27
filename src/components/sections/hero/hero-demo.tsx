@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
-  BadgeCheck,
   Check,
   Copy,
   ExternalLink,
+  Fingerprint,
   Loader2,
   LogOut,
   RefreshCw,
@@ -246,22 +246,21 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
       <div className="mb-6 flex items-start justify-between">
         <div>
           <h2 className="text-[20px] font-medium tracking-[-0.02em] text-[var(--ink)]">
-            Try JAW
+            Try <span className="text-[var(--hero-electric)]">JAW</span>
           </h2>
-          {isConnected && address && ensName && (
-            <span className="mt-1 inline-flex items-center gap-1 text-[13px] font-medium text-[var(--ink-2)]">
-              <BadgeCheck size={13} className="text-[var(--acc)]" />
-              {ensName}
-            </span>
-          )}
+          <span className="mt-1 block font-mono text-[13px] text-[var(--ink-2)]">
+            {isConnected && address
+              ? ensName ?? shortenAddress(address)
+              : "An interactive demo"}
+          </span>
         </div>
         {isConnected && (
           <button
             type="button"
             onClick={handleDisconnect}
-            className="inline-flex items-center gap-1 text-[11px] font-medium text-[var(--ink-3)] transition hover:text-[var(--ink)]"
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--ink-3)] transition hover:text-[var(--ink)]"
           >
-            <LogOut size={11} /> Disconnect
+            <LogOut size={14} /> Disconnect
           </button>
         )}
       </div>
@@ -341,10 +340,10 @@ const StepIndicator = ({ step }: { step: Step }) => {
             <span
               className={`grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-medium ${
                 isDone
-                  ? "bg-[var(--acc)] text-white"
+                  ? "bg-[var(--hero-electric)] text-white"
                   : isActive
-                  ? "bg-[var(--acc-soft)] text-[var(--acc)]"
-                  : "bg-[var(--line)] text-[var(--ink-2)]"
+                  ? "border-2 border-[var(--hero-electric)] text-[var(--hero-electric)]"
+                  : "border border-[var(--line-2)] text-[var(--ink-3)]"
               }`}
             >
               {isDone ? <Check size={12} strokeWidth={2.6} /> : i + 1}
@@ -376,15 +375,30 @@ const ConnectStep = ({
   error?: string;
 }) => (
   <>
-    <p className="mb-5 text-[15px] leading-[1.5] text-[var(--ink-2)]">
-      No seed phrase. No extension. No download. Smart accounts with biometric
-      signing.
-    </p>
+    <div className="flex flex-col items-center text-center">
+      <div className="relative mx-auto my-4 grid size-[112px] place-items-center">
+        <span className="scan-glow absolute inset-4 rounded-full bg-[var(--hero-electric)]/15 blur-md" />
+        <span className="scan-ripple absolute inset-3 rounded-full border border-[var(--hero-electric)]/40" />
+        <span className="scan-ripple absolute inset-3 rounded-full border border-[var(--hero-electric)]/40 [animation-delay:1.1s]" />
+        <span className="absolute inset-5 rounded-full border border-[var(--hero-electric)]/25 bg-[var(--bg)]" />
+        <Fingerprint
+          size={44}
+          strokeWidth={1.5}
+          className="relative text-[var(--hero-electric)]"
+        />
+      </div>
+      <h3 className="mt-2 text-[17px] font-medium text-[var(--ink)]">
+        Sign in with biometrics
+      </h3>
+      <p className="mt-1.5 text-[14px] leading-[1.5] text-[var(--ink-2)]">
+        Face ID · Touch ID · Passkey. Keys stay on your device.
+      </p>
+    </div>
     <button
       type="button"
       onClick={onConnect}
       disabled={isConnecting}
-      className="btn-primary w-full justify-center px-4 py-3 text-[15px] disabled:opacity-60"
+      className="btn-primary mt-6 w-full justify-center px-4 py-3 text-[15px] disabled:opacity-60"
     >
       {isConnecting ? (
         <>
@@ -481,18 +495,20 @@ const SendStep = ({
   r2Name: string | null;
 }) => (
   <>
-    <p className="mb-4 text-[15px] leading-[1.5] text-[var(--ink-2)]">
-      Batch transfers in one settlement. One approval, both payments land onchain
-      together, no repeated signing.
+    <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--ink-3)]">
+      Batch transfer · 1 approval
     </p>
-    <div className="mb-5 space-y-2 rounded-xl border border-[var(--line)] bg-[var(--acc-soft)]/30 p-3 text-[13px]">
-      <Row
-        label={`To ${r1Name ?? shortenAddress(DEMO_RECIPIENT_1)}`}
-        value={`${SEND_AMOUNT_1} USDC`}
+    <div className="mb-5 overflow-hidden rounded-xl border border-[var(--line)]">
+      <RecipientRow
+        gradient="linear-gradient(135deg, #38BDF8, #3B82F6)"
+        name={r1Name ?? shortenAddress(DEMO_RECIPIENT_1)}
+        amount={SEND_AMOUNT_1}
       />
-      <Row
-        label={`To ${r2Name ?? shortenAddress(DEMO_RECIPIENT_2)}`}
-        value={`${SEND_AMOUNT_2} USDC`}
+      <div className="h-px bg-[var(--line)]" />
+      <RecipientRow
+        gradient="linear-gradient(135deg, #A78BFA, #D946EF)"
+        name={r2Name ?? shortenAddress(DEMO_RECIPIENT_2)}
+        amount={SEND_AMOUNT_2}
       />
     </div>
     <button
@@ -507,7 +523,7 @@ const SendStep = ({
         </>
       ) : (
         <>
-          Send <ArrowRight size={14} />
+          Confirm & Send <ArrowRight size={14} />
         </>
       )}
     </button>
@@ -515,10 +531,34 @@ const SendStep = ({
   </>
 );
 
-const Row = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex justify-between gap-2">
-    <span className="text-[var(--ink-2)]">{label}</span>
-    <span className="font-mono text-[var(--ink)]">{value}</span>
+const RecipientRow = ({
+  gradient,
+  name,
+  amount,
+}: {
+  gradient: string;
+  name: string;
+  amount: string;
+}) => (
+  <div className="flex items-center justify-between gap-3 px-3.5 py-3">
+    <div className="flex min-w-0 items-center gap-3">
+      <span
+        className="size-9 shrink-0 rounded-full"
+        style={{ background: gradient }}
+      />
+      <div className="flex min-w-0 flex-col">
+        <span className="text-[12px] text-[var(--ink-3)]">To</span>
+        <span className="truncate text-[14px] font-medium text-[var(--ink)]">
+          {name}
+        </span>
+      </div>
+    </div>
+    <div className="flex shrink-0 flex-col items-end">
+      <span className="font-mono text-[15px] font-medium text-[var(--ink)]">
+        {amount}
+      </span>
+      <span className="text-[11px] text-[var(--ink-3)]">USDC</span>
+    </div>
   </div>
 );
 
@@ -531,7 +571,7 @@ const DoneStep = ({
 }) => (
   <>
     <div className="mb-5 flex flex-col items-center gap-3 py-4 text-center">
-      <span className="grid size-12 place-items-center rounded-full bg-[var(--acc)] text-white">
+      <span className="grid size-12 place-items-center rounded-full bg-[var(--hero-electric)] text-white">
         <Check size={22} strokeWidth={2.6} />
       </span>
       <p className="text-[15px] font-medium text-[var(--ink)]">
@@ -545,7 +585,7 @@ const DoneStep = ({
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--acc)] underline-offset-4 hover:underline"
         >
-          View on BaseScan <ExternalLink size={12} />
+          View on Basescan <ExternalLink size={12} />
         </a>
       ) : (
         <span className="inline-flex items-center gap-1.5 text-[13px] text-[var(--ink-2)]">
