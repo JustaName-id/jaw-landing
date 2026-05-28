@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -21,7 +21,7 @@ import {
   useSendCalls,
 } from "wagmi";
 import { useConnect } from "@jaw.id/wagmi";
-import { encodeFunctionData, erc20Abi, parseUnits } from "viem";
+import { encodeFunctionData, erc20Abi, formatUnits, parseUnits } from "viem";
 import { JustaName } from "@justaname.id/sdk";
 import {
   CHAIN_ID,
@@ -82,7 +82,7 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
     r1: string | null;
     r2: string | null;
   }>({ r1: null, r2: null });
-  const fundRequested = useRef(false);
+  const [fundingStarted, setFundingStarted] = useState(false);
 
   const balance = useReadContract({
     abi: erc20Abi,
@@ -91,10 +91,13 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
     functionName: "balanceOf",
     args: address ? [address] : undefined,
     query: {
-      enabled: Boolean(address) && step === "fund",
+      enabled: Boolean(address) && (step === "fund" || step === "send"),
       refetchInterval: step === "fund" ? 3000 : false,
     },
   });
+
+  const balanceDisplay =
+    balance.data !== undefined ? formatUnits(balance.data, 6) : null;
 
   const callsStatus = useCallsStatus({
     id: sendData?.id ?? "",
@@ -121,7 +124,7 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
     setStep("connect");
     setFundTxHash(undefined);
     setFundError(undefined);
-    fundRequested.current = false;
+    setFundingStarted(false);
     resetSend();
   }, [isConnected, resetSend]);
 
@@ -166,7 +169,7 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
   // Ask the server to drop testnet USDC into the connected account.
   const requestFunding = useCallback(() => {
     if (!address) return;
-    fundRequested.current = true;
+    setFundingStarted(true);
     setFundError(undefined);
     setFundTxHash(undefined);
     fetch("/api/fund", {
@@ -181,13 +184,6 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
       })
       .catch((err: Error) => setFundError(err.message));
   }, [address]);
-
-  // On entering the fund step, fund once. Guarded so React's double-invoked
-  // effects don't fund twice.
-  useEffect(() => {
-    if (step !== "fund" || !address || fundRequested.current) return;
-    requestFunding();
-  }, [step, address, requestFunding]);
 
   // fund -> send once the USDC lands
   useEffect(() => {
@@ -283,6 +279,8 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
                 address={address}
                 copied={copied}
                 onCopy={handleCopy}
+                started={fundingStarted}
+                onStart={requestFunding}
                 fundTxHash={fundTxHash}
                 error={fundError}
                 onRetry={requestFunding}
@@ -295,6 +293,7 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
                 error={sendError?.message}
                 r1Name={recipientNames.r1}
                 r2Name={recipientNames.r2}
+                balance={balanceDisplay}
               />
             )}
             {step === "done" && (
@@ -427,6 +426,8 @@ const FundStep = ({
   address,
   copied,
   onCopy,
+  started,
+  onStart,
   fundTxHash,
   error,
   onRetry,
@@ -434,6 +435,8 @@ const FundStep = ({
   address: `0x${string}`;
   copied: boolean;
   onCopy: () => void;
+  started: boolean;
+  onStart: () => void;
   fundTxHash?: string;
   error?: string;
   onRetry: () => void;
@@ -457,8 +460,8 @@ const FundStep = ({
   return (
     <>
       <p className="mb-4 text-[15px] leading-[1.5] text-[var(--ink-2)]">
-        Your smart account is ready. We&rsquo;re dropping testnet USDC into it —
-        no faucet, no waiting around.
+        Your smart account is live. We&rsquo;ll fund it with testnet
+        USDC so you can try a transfer.
       </p>
       <div className="mb-4 flex items-center justify-between gap-2 rounded-xl border border-[var(--line)] bg-[var(--acc-soft)]/30 px-3 py-2.5">
         <code className="font-mono text-[13px] text-[var(--ink)]">
@@ -473,18 +476,31 @@ const FundStep = ({
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <p className="flex items-center gap-2 text-[13px] text-[var(--ink-2)]">
-        <Loader2 size={12} className="animate-spin" /> Funding your account…
-      </p>
-      {fundTxHash && (
-        <a
-          href={basescanTxUrl(fundTxHash)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium text-[var(--acc)] underline-offset-4 hover:underline"
+      {started ? (
+        <>
+          <p className="flex items-center gap-2 text-[13px] text-[var(--ink-2)]">
+            <Loader2 size={12} className="animate-spin" /> Funding your
+            account…
+          </p>
+          {fundTxHash && (
+            <a
+              href={basescanTxUrl(fundTxHash)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium text-[var(--acc)] underline-offset-4 hover:underline"
+            >
+              View funding tx <ExternalLink size={12} />
+            </a>
+          )}
+        </>
+      ) : (
+        <button
+          type="button"
+          onClick={onStart}
+          className="btn-primary w-full justify-center px-4 py-3 text-[15px]"
         >
-          View funding tx <ExternalLink size={12} />
-        </a>
+          Get Test USDC <ArrowRight size={14} />
+        </button>
       )}
     </>
   );
@@ -496,17 +512,26 @@ const SendStep = ({
   error,
   r1Name,
   r2Name,
+  balance,
 }: {
   onSend: () => void;
   isSending: boolean;
   error?: string;
   r1Name: string | null;
   r2Name: string | null;
+  balance: string | null;
 }) => (
   <>
-    <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--ink-3)]">
-      Batch transfer · 1 approval
-    </p>
+    <div className="mb-3 flex items-center justify-between gap-2">
+      <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--ink-3)]">
+        Batch transfer · 1 approval
+      </p>
+      {balance && (
+        <p className="text-[11px] font-mono text-[var(--ink-3)]">
+          Balance: {balance} USDC
+        </p>
+      )}
+    </div>
     <div className="mb-5 overflow-hidden rounded-xl border border-[var(--line)]">
       <RecipientRow
         gradient="linear-gradient(135deg, #38BDF8, #3B82F6)"
