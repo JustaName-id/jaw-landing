@@ -1,5 +1,5 @@
-import { ArrowRight } from "lucide-react";
-import { HeroDemoLauncher } from "./hero-demo-launcher";
+import { HeroPrimaryCta } from "./hero-primary-cta";
+import { HeroDemoSlot } from "./hero-demo-slot";
 
 export const Hero = () => {
   return (
@@ -25,14 +25,7 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-wrap items-center gap-5 max-md:justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-both">
-            <a
-              href="https://dashboard.jaw.id"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary px-[22px] py-[13px] text-[18px] max-md:text-base"
-            >
-              Get Started <ArrowRight size={14} />
-            </a>
+            <HeroPrimaryCta />
             <a
               href="#contact"
               className="text-[16px] font-medium text-[var(--ink-2)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
@@ -42,9 +35,7 @@ export const Hero = () => {
           </div>
         </div>
 
-        <div className="flex justify-center lg:justify-end animate-in fade-in slide-in-from-bottom-6 duration-700 delay-500 fill-mode-both">
-          <HeroDemoLauncher />
-        </div>
+        <HeroDemoSlot />
       </div>
     </section>
   );
