@@ -24,6 +24,7 @@ import { useConnect } from "@jaw.id/wagmi";
 import { encodeFunctionData, erc20Abi, formatUnits, parseUnits } from "viem";
 import { JustaName } from "@justaname.id/sdk";
 import {
+  ALREADY_FUNDED_USDC,
   CHAIN_ID,
   DEMO_RECIPIENT_1,
   DEMO_RECIPIENT_2,
@@ -185,9 +186,17 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
       .catch((err: Error) => setFundError(err.message));
   }, [address]);
 
-  // fund -> send once the USDC lands
+  // fund -> send only once the account holds enough USDC to actually run the
+  // batched transfer. Anything under the threshold keeps the user on the fund
+  // step so the server can top them up.
   useEffect(() => {
-    if (step === "fund" && balance.data && balance.data > 0n) setStep("send");
+    if (
+      step === "fund" &&
+      balance.data !== undefined &&
+      balance.data >= parseUnits(ALREADY_FUNDED_USDC, 6)
+    ) {
+      setStep("send");
+    }
   }, [step, balance.data]);
 
   // send -> done once the batch is submitted
