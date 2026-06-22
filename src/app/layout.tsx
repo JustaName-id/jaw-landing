@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 const siteTitle = "JAW.ID - Identity-Centric Smart Account Infrastructure";
 const siteDescription =
-  "Access onchain capabilities without carrying its complexity. Built on true self-custody with passkey authentication, gasless ENS identity, and multi-chain support.";
+  "The quickest and safest crypto onboarding solution. Built on true self-custody with passkey authentication, gasless ENS identity, and multi-chain support.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jaw.id"),

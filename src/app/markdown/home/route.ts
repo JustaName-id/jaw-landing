@@ -2,7 +2,7 @@ import { SITE_OVERVIEW_MARKDOWN } from "@/content/site-overview";
 
 const HOMEPAGE_MARKDOWN = `# JAW.ID — Identity-Centric Smart Account Infrastructure
 
-Access onchain capabilities without carrying its complexity. JAW.ID is built on
+The quickest and safest crypto onboarding solution. JAW.ID is built on
 true self-custody with passkey authentication, gasless ENS identity, and
 multi-chain support.
 

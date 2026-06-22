@@ -13,10 +13,10 @@ export const Hero = () => {
       <div className="relative mx-auto grid w-full max-w-[1260px] grid-cols-1 items-center gap-12 px-5 pb-16 pt-32 md:px-6 md:py-30 lg:grid-cols-[1fr_minmax(0,440px)] lg:gap-16 lg:px-8 lg:py-[140px] max-md:gap-10">
         <div className="max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
           <h1 className="m-0 mb-6 max-w-[18ch] font-medium tracking-[-0.04em] leading-[1.05] text-[clamp(40px,6vw,60px)] [text-wrap:balance] max-md:max-w-full max-md:tracking-[-0.03em] max-md:text-[clamp(28px,8vw,44px)] max-[380px]:text-[26px] animate-in fade-in slide-in-from-bottom-4 duration-700">
-            Access Onchain <span className="serif">Capabilities</span>,{" "}
+            The quickest and safest{" "}
             <br className="max-md:hidden" />
-            minus the{" "}
-            <span className="text-[var(--hero-electric)]">Complexity</span>
+            crypto onboarding{" "}
+            <span className="text-[var(--hero-electric)]">solution</span>
           </h1>
 
           <p className="m-0 mb-8 max-w-[44ch] text-[20px] leading-[1.55] text-[var(--ink-2)] max-md:text-base animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both">
