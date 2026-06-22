@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -38,6 +38,7 @@ import {
   isDemoConfigured,
   shortenAddress,
 } from "@/lib/jaw-demo";
+import { getAnalyticsClient } from "@/lib/analytics";
 
 type Step = "connect" | "fund" | "send" | "done";
 
@@ -76,6 +77,11 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
 
   const [step, setStep] = useState<Step>("connect");
   const [copied, setCopied] = useState(false);
+  // The desktop demo renders inline; the mobile "Try JAW" demo renders in a modal.
+  const surface = framed ? "inline" : "modal";
+  // Track demo-funnel progress, skipping the initial "connect" mount so the
+  // always-present inline demo doesn't log a step on every page load.
+  const lastTrackedStep = useRef<Step | null>(null);
   const [fundTxHash, setFundTxHash] = useState<string>();
   const [fundError, setFundError] = useState<string>();
   const [ensName, setEnsName] = useState<string | null>(null);
@@ -203,6 +209,23 @@ export const HeroDemo = ({ framed = true }: { framed?: boolean } = {}) => {
   useEffect(() => {
     if (step === "send" && sendData) setStep("done");
   }, [step, sendData]);
+
+  // Demo funnel: report each step the user reaches (connect -> fund -> send -> done).
+  useEffect(() => {
+    if (lastTrackedStep.current === null && step === "connect") {
+      lastTrackedStep.current = step;
+      // The inline desktop demo is always mounted, so its initial "connect"
+      // isn't real intent and is skipped. The modal only mounts when the user
+      // taps "Try JAW", so its "connect" IS intent and is tracked.
+      if (surface === "modal") {
+        getAnalyticsClient().track("HERO_DEMO_STEP_REACHED", { step, surface });
+      }
+      return;
+    }
+    if (lastTrackedStep.current === step) return;
+    lastTrackedStep.current = step;
+    getAnalyticsClient().track("HERO_DEMO_STEP_REACHED", { step, surface });
+  }, [step, surface]);
 
   const handleConnect = () => {
     const connector = config.connectors.find((c) => c.id === "jaw");

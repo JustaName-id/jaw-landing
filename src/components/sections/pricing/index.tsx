@@ -8,6 +8,7 @@ interface Plan {
   cta: string;
   href: string;
   external?: boolean;
+  phCta: string;
 }
 
 const plans: Plan[] = [
@@ -22,6 +23,7 @@ const plans: Plan[] = [
     cta: "Get Started",
     href: "https://dashboard.jaw.id",
     external: true,
+    phCta: "pricing_developers",
   },
   {
     title: "For Businesses",
@@ -33,6 +35,7 @@ const plans: Plan[] = [
     ],
     cta: "Contact Us",
     href: "#contact",
+    phCta: "pricing_businesses",
   },
 ];
 
@@ -79,6 +82,7 @@ export const Pricing = () => {
                 target: "_blank",
                 rel: "noopener noreferrer",
               })}
+              data-ph-capture-attribute-cta={plan.phCta}
               className="btn-primary mt-1 self-start max-md:w-full max-md:justify-center"
             >
               {plan.cta} <ArrowRight size={13} />

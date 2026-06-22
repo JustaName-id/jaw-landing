@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -8,6 +9,7 @@ import { ToastProvider } from "@/components/providers/toast-provider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { WebMcp } from "@/components/agent/web-mcp";
 import { JawProvider } from "@/components/providers/jaw-provider";
+import { PageviewTracker } from "@/components/providers/analytics-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -94,6 +96,9 @@ export default function RootLayout({
         </a>
         <ToastProvider />
         <JawProvider>
+          <Suspense fallback={null}>
+            <PageviewTracker />
+          </Suspense>
           <Navbar />
           <main id="main-content">{children}</main>
           <Footer />

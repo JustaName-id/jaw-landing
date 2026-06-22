@@ -21,6 +21,7 @@ import {
   IllDapps,
 } from "./illustrations";
 import { StaticMotionSvg } from "@/components/animations/StaticMotionSvg";
+import { getAnalyticsClient } from "@/lib/analytics";
 
 interface Tab {
   id: string;
@@ -115,6 +116,13 @@ export const BuiltFor = () => {
   const current = tabs.find((t) => t.id === active) ?? tabs[0];
   const Illust = current.Ill;
 
+  const selectTab = (id: string, device: "desktop" | "mobile") => {
+    if (id !== active) {
+      getAnalyticsClient().track("BUILTFOR_TAB_SWITCHED", { tab: id, device });
+    }
+    setActive(id);
+  };
+
   return (
     <Section variant="diag">
       <SectionHead
@@ -133,7 +141,7 @@ export const BuiltFor = () => {
           <button
             key={t.id}
             type="button"
-            onClick={() => setActive(t.id)}
+            onClick={() => selectTab(t.id, "desktop")}
             className={cn(
               "cursor-pointer whitespace-nowrap rounded-full border-none px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200",
               active === t.id
@@ -156,7 +164,7 @@ export const BuiltFor = () => {
               <button
                 key={t.id}
                 type="button"
-                onClick={() => setActive(t.id)}
+                onClick={() => selectTab(t.id, "mobile")}
                 className={cn(
                   "flex min-h-[56px] cursor-pointer flex-col items-center justify-center gap-1 rounded-[8px] border-none px-1 py-2 transition-all duration-200",
                   isActive

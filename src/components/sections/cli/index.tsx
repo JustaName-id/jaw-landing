@@ -61,6 +61,7 @@ export const CLI = () => {
               href="https://docs.jaw.id"
               target="_blank"
               rel="noopener noreferrer"
+              data-ph-capture-attribute-cta="cli_explore"
               className="btn-primary px-[22px] py-3.5 text-sm"
             >
               Explore the CLI <ArrowRight size={14} />

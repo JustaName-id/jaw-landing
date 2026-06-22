@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/section";
 import { SectionHead } from "@/components/sectionHead";
+import { getAnalyticsClient } from "@/lib/analytics";
 
 type Token = string | { t: string; c?: "k" | "s" | "f" | "p" };
 
@@ -118,6 +119,7 @@ const CodeBlock = () => {
     try {
       await navigator.clipboard.writeText(fullText);
       setCopied(true);
+      getAnalyticsClient().track("CODE_COPIED", { snippet: "wagmi.config.ts" });
       setTimeout(() => setCopied(false), 1400);
     } catch (err) {
       console.error("Failed to copy:", err);
@@ -176,6 +178,11 @@ export const CodeShowcase = () => {
           href="https://docs.jaw.id"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            getAnalyticsClient().track("DOCS_CLICKED", {
+              location: "code_showcase",
+            })
+          }
           className="btn-primary"
         >
           View Full Documentation <ArrowRight size={14} />

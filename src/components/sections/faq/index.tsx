@@ -6,6 +6,7 @@ import { faqs } from "@/lib/data/faq";
 import { faqAnswerJsxMap } from "@/lib/data/faq-jsx";
 import { Section } from "@/components/section";
 import { cn } from "@/lib/utils";
+import { getAnalyticsClient } from "@/lib/analytics";
 
 interface FAQItemProps {
   id: number;
@@ -78,6 +79,9 @@ export const FAQ = () => {
           </p>
           <a
             href="#contact"
+            onClick={() =>
+              getAnalyticsClient().track("CONTACT_CLICKED", { location: "faq" })
+            }
             className="inline-flex items-center gap-2 text-sm text-[#F5F5F4]"
           >
             Talk to our team <ArrowRight size={13} />
@@ -92,7 +96,14 @@ export const FAQ = () => {
                 q={it.question}
                 a={faqAnswerJsxMap[i] ?? it.answer}
                 open={openIdx === i}
-                onClick={() => setOpenIdx(openIdx === i ? -1 : i)}
+                onClick={() => {
+                  const expanded = openIdx !== i;
+                  setOpenIdx(expanded ? i : -1);
+                  getAnalyticsClient().track("FAQ_TOGGLED", {
+                    question: it.question,
+                    expanded,
+                  });
+                }}
               />
             ))}
           </div>

@@ -10,6 +10,27 @@ const homeLinkHeader = `${discoveryLinks}, <https://jaw.id>; rel="canonical"`;
 const privacyLinkHeader = `${discoveryLinks}, <https://jaw.id/privacy-policy>; rel="canonical"`;
 
 const nextConfig: NextConfig = {
+  // posthog-js hits /e/, /decide/, /s/ — some with a trailing slash. Without
+  // this, Next.js would 308-redirect those and drop the request body.
+  skipTrailingSlashRedirect: true,
+  // PostHog reverse proxy (EU cloud). Routing analytics through our own origin
+  // keeps ad-blockers from dropping events. NEXT_PUBLIC_POSTHOG_HOST=/analytics.
+  async rewrites() {
+    return [
+      {
+        source: "/analytics/static/:path*",
+        destination: "https://eu-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/analytics/:path*/",
+        destination: "https://eu.i.posthog.com/:path*/",
+      },
+      {
+        source: "/analytics/:path*",
+        destination: "https://eu.i.posthog.com/:path*",
+      },
+    ];
+  },
   async headers() {
     return [
       {

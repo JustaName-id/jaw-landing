@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { getAnalyticsClient } from "@/lib/analytics";
+import type { ClickLocation } from "@/lib/analytics/events";
 
 interface NavLink {
   label: string;
@@ -18,6 +20,17 @@ const links: NavLink[] = [
   { label: "Documentation", href: "https://docs.jaw.id", external: true },
   { label: "Contact Us", href: "#contact" },
 ];
+
+// Map each nav link to its named conversion event.
+const trackNavLink = (label: string, location: ClickLocation) => {
+  if (label === "Playground") {
+    getAnalyticsClient().track("PLAYGROUND_CLICKED", { location });
+  } else if (label === "Documentation") {
+    getAnalyticsClient().track("DOCS_CLICKED", { location });
+  } else if (label === "Contact Us") {
+    getAnalyticsClient().track("CONTACT_CLICKED", { location });
+  }
+};
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,6 +75,7 @@ export const Navbar = () => {
               key={l.label}
               href={l.href}
               {...(l.external && { target: "_blank", rel: "noopener noreferrer" })}
+              onClick={() => trackNavLink(l.label, "navbar")}
               className="navlink whitespace-nowrap rounded-full px-4 py-2 text-[13.5px] font-medium text-[var(--ink-2)] transition-all duration-200"
             >
               {l.label}
@@ -74,6 +88,11 @@ export const Navbar = () => {
             href="https://dashboard.jaw.id"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              getAnalyticsClient().track("GET_STARTED_CLICKED", {
+                location: "navbar",
+              })
+            }
             className="btn-primary max-md:!px-3.5 max-md:!py-1.5 max-md:!text-[12px] max-md:!gap-0"
           >
             Get started{" "}
@@ -98,7 +117,10 @@ export const Navbar = () => {
                     key={l.label}
                     href={l.href}
                     {...(l.external && { target: "_blank", rel: "noopener noreferrer" })}
-                    onClick={handleLinkClick}
+                    onClick={() => {
+                      trackNavLink(l.label, "navbar_mobile");
+                      handleLinkClick();
+                    }}
                     className="rounded-lg px-4 py-3 text-base font-medium text-[var(--ink)] transition-all hover:bg-[var(--bg-raise-2)] active:bg-[var(--bg-raise-2)]"
                   >
                     {l.label}
@@ -108,7 +130,12 @@ export const Navbar = () => {
                   href="https://dashboard.jaw.id"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={handleLinkClick}
+                  onClick={() => {
+                    getAnalyticsClient().track("GET_STARTED_CLICKED", {
+                      location: "navbar_mobile",
+                    });
+                    handleLinkClick();
+                  }}
                   className="btn-primary mt-4 justify-center px-[18px] py-3 text-sm"
                 >
                   Get started <ArrowRight size={14} />

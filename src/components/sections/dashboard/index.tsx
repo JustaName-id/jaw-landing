@@ -48,6 +48,7 @@ export const Dashboard = () => {
               href="https://dashboard.jaw.id"
               target="_blank"
               rel="noopener noreferrer"
+              data-ph-capture-attribute-cta="dashboard_get_started"
               className="btn-primary"
             >
               Get started <ArrowRight size={14} />
