@@ -18,6 +18,7 @@ export const HeroPrimaryCta = () => {
           href="https://dashboard.jaw.id"
           target="_blank"
           rel="noopener noreferrer"
+          data-ph-capture-attribute-cta="hero_get_started"
           className="btn-primary px-[22px] py-[13px] text-[18px]"
         >
           Get Started <ArrowRight size={14} />
@@ -29,6 +30,7 @@ export const HeroPrimaryCta = () => {
           <Dialog.Trigger asChild>
             <button
               type="button"
+              data-ph-capture-attribute-cta="hero_try_jaw"
               className="btn-primary gap-2.5 px-[22px] py-[13px] text-base font-medium"
             >
               <Sparkles size={18} /> Try JAW

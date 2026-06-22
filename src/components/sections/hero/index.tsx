@@ -28,6 +28,7 @@ export const Hero = () => {
             <HeroPrimaryCta />
             <a
               href="#contact"
+              data-ph-capture-attribute-cta="hero_contact"
               className="text-[16px] font-medium text-[var(--ink-2)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
             >
               Contact us

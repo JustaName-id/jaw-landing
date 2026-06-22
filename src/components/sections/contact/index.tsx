@@ -22,6 +22,7 @@ import { Send, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
+import { getAnalyticsClient } from "@/lib/analytics";
 
 export const Contact = () => {
   const errorRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -73,6 +74,8 @@ export const Contact = () => {
         throw new Error(result.error || "Failed to submit form");
       }
 
+      // Track the conversion with role only — no PII (name/email/message).
+      getAnalyticsClient().track("CONTACT_SUBMITTED", { role: data.role });
       toast.success("Message sent successfully!", {
         description: "We'll get back to you as soon as possible.",
       });
@@ -116,6 +119,11 @@ export const Contact = () => {
                 href="https://t.me/+RsFLPfky7-YxZjVk"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  getAnalyticsClient().track("CONTACT_CHANNEL_CLICKED", {
+                    channel: "telegram",
+                  })
+                }
                 className="flex items-center gap-3 text-gray-900 hover:text-gray-600 transition-colors"
               >
                 <Send className="w-5 h-5" strokeWidth={1.5} />
@@ -124,6 +132,11 @@ export const Contact = () => {
 
               <a
                 href="mailto:hello@justalab.co"
+                onClick={() =>
+                  getAnalyticsClient().track("CONTACT_CHANNEL_CLICKED", {
+                    channel: "email",
+                  })
+                }
                 className="flex items-center gap-3 text-gray-900 hover:text-gray-600 transition-colors"
               >
                 <Mail className="w-5 h-5" strokeWidth={1.5} />

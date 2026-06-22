@@ -133,6 +133,7 @@ export const BentoGrid = () => {
             href="https://docs.jaw.id"
             target="_blank"
             rel="noopener noreferrer"
+            data-ph-capture-attribute-cta="bento_start_building"
             className="btn-primary"
           >
             Start building in minutes <ArrowRight size={14} />
