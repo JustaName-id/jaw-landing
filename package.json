@@ -37,6 +37,9 @@
     "wagmi": "3.6.15",
     "zod": "^4.3.6"
   },
+  "overrides": {
+    "@wagmi/core": "3.4.12"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
