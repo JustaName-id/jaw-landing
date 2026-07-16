@@ -5,9 +5,9 @@
       "name": "jaw-landing",
       "dependencies": {
         "@hookform/resolvers": "^5.2.2",
-        "@jaw.id/core": "^1.0.8",
-        "@jaw.id/ui": "^1.2.9",
-        "@jaw.id/wagmi": "^1.0.8",
+        "@jaw.id/core": "^1.0.9",
+        "@jaw.id/ui": "^1.2.11",
+        "@jaw.id/wagmi": "^1.0.9",
         "@justaname.id/sdk": "0.2.215",
         "@radix-ui/react-accordion": "^1.2.12",
         "@radix-ui/react-checkbox": "^1.3.3",
@@ -114,11 +114,11 @@
 
     "@img/sharp-win32-x64": ["@img/sharp-win32-x64@0.34.5", "", { "os": "win32", "cpu": "x64" }, "sha512-+29YMsqY2/9eFEiW93eqWnuLcWcufowXewwSNIT6UwZdUUCrM3oFjMWH/Z6/TMmb4hlFenmfAVbpWeup2jryCw=="],
 
-    "@jaw.id/core": ["@jaw.id/core@1.0.8", "", { "dependencies": { "axios": "1.13.5", "eventemitter3": "5.0.1", "mipd": "^0.0.7", "ox": "0.9.6", "qs": "6.14.1", "tslib": "2.8.1", "viem": "^2.55.0", "zustand": "^5.0.8" } }, "sha512-gJnFXomQGqp4LFCAaFk+5ZpYCobQzeA/CG2TkvciDPdz4MR33ZQzbmGthVjyIUDyEdkvcbE6VGksM3239N8lww=="],
+    "@jaw.id/core": ["@jaw.id/core@1.0.9", "", { "dependencies": { "axios": "1.13.5", "eventemitter3": "5.0.1", "mipd": "^0.0.7", "ox": "0.9.6", "qs": "6.14.1", "tslib": "2.8.1", "viem": "^2.55.0", "zustand": "^5.0.8" } }, "sha512-3P0VPbZ76LdWxUVF1huzITMAM9QsigZhy9zRhvPLctx+fCbgDdzr3t5R6tMNl3j2S+PXhmjPJHtbaoGmy101YQ=="],
 
-    "@jaw.id/ui": ["@jaw.id/ui@1.2.9", "", { "dependencies": { "@hookform/resolvers": "^5.2.2", "@jaw.id/core": "1.0.8", "@justaname.id/sdk": "^0.3.0", "@radix-ui/react-accordion": "^1.2.12", "@radix-ui/react-avatar": "^1.1.10", "@radix-ui/react-checkbox": "^1.3.3", "@radix-ui/react-dialog": "^1.1.15", "@radix-ui/react-dropdown-menu": "^2.1.16", "@radix-ui/react-label": "^2.1.7", "@radix-ui/react-popover": "^1.1.15", "@radix-ui/react-scroll-area": "^1.2.10", "@radix-ui/react-select": "^2.2.6", "@radix-ui/react-separator": "^1.1.7", "@radix-ui/react-slot": "^1.2.3", "@radix-ui/react-tabs": "^1.1.9", "@radix-ui/react-tooltip": "^1.2.8", "@shazow/whatsabi": "^0.26.0", "class-variance-authority": "^0.7.1", "clsx": "^2.1.1", "lucide-react": "^0.545.0", "react-hook-form": "^7.65.0", "tailwind-merge": "^3.3.1", "tailwindcss-animate": "^1.0.7", "viem": "^2.48.0", "zod": "^4.1.12" }, "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-dzIFr7pOYM9OaKyIVA0vbG3mtx4Hq1oQ/dyrZLN8Z6pK8gClqWUVdF601zO54Zon3hM02rQG4MGhUSmFMOE67A=="],
+    "@jaw.id/ui": ["@jaw.id/ui@1.2.11", "", { "dependencies": { "@hookform/resolvers": "^5.2.2", "@jaw.id/core": "1.0.9", "@justaname.id/sdk": "^0.3.0", "@radix-ui/react-accordion": "^1.2.12", "@radix-ui/react-avatar": "^1.1.10", "@radix-ui/react-checkbox": "^1.3.3", "@radix-ui/react-dialog": "^1.1.15", "@radix-ui/react-dropdown-menu": "^2.1.16", "@radix-ui/react-label": "^2.1.7", "@radix-ui/react-popover": "^1.1.15", "@radix-ui/react-scroll-area": "^1.2.10", "@radix-ui/react-select": "^2.2.6", "@radix-ui/react-separator": "^1.1.7", "@radix-ui/react-slot": "^1.2.3", "@radix-ui/react-tabs": "^1.1.9", "@radix-ui/react-tooltip": "^1.2.8", "@shazow/whatsabi": "^0.26.0", "class-variance-authority": "^0.7.1", "clsx": "^2.1.1", "lucide-react": "^0.545.0", "react-hook-form": "^7.65.0", "tailwind-merge": "^3.3.1", "tailwindcss-animate": "^1.0.7", "viem": "^2.48.0", "zod": "^4.1.12" }, "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-6PedmFk3Va3xt8mxtNQ/TNo0TJ6nXG5SEqsSP9hPrUh5cnSOaQrmX5+XvJ+jPB7oomhlF+GxOe+RjaKmZp+d2Q=="],
 
-    "@jaw.id/wagmi": ["@jaw.id/wagmi@1.0.8", "", { "dependencies": { "@jaw.id/core": "1.0.8", "@wagmi/core": "^3.0.0", "tslib": "^2.3.0", "viem": "^2.38.2" }, "peerDependencies": { "@tanstack/react-query": ">=5.0.0 <5.100.10", "react": ">=18.0.0", "wagmi": ">=3.0.0" } }, "sha512-KPE8/JhLcKko6qK1qis24MCDehwzOS+te/iSlMmTOKvGxHVxLXbwHfJ1VkVUOGLItDR+AFU+tT3Fn/OE+hGQww=="],
+    "@jaw.id/wagmi": ["@jaw.id/wagmi@1.0.9", "", { "dependencies": { "@jaw.id/core": "1.0.9", "@wagmi/core": "^3.0.0", "tslib": "^2.3.0", "viem": "^2.38.2" }, "peerDependencies": { "@tanstack/react-query": ">=5.0.0 <5.100.10", "react": ">=18.0.0", "wagmi": ">=3.0.0" } }, "sha512-OzfkQFR3CFjXNw4+lkKUZZbl3Azy4rsRL6ducQmdZoly2Omt2qnTd2VrGSDjMcN1kPXK5exmjjjh7u+L0Xp86w=="],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 
