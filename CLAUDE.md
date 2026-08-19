@@ -190,7 +190,10 @@ The page is mostly static, but the hero carries a live JAW demo:
   testnet USDC transfer from a funder EOA into freshly created demo accounts.
 - **Env vars** (see `.env.example`): `NEXT_PUBLIC_JAW_API_KEY`, the two
   `NEXT_PUBLIC_DEMO_RECIPIENT_*` addresses, `TREASURY_PRIVATE_KEY` (server-only —
-  never `NEXT_PUBLIC_`), and an optional `BASE_SEPOLIA_RPC_URL`.
+  never `NEXT_PUBLIC_`), and two independent Base Sepolia RPCs — server-only
+  `BASE_SEPOLIA_RPC_URL` for `/api/fund`, and browser-visible
+  `NEXT_PUBLIC_BASE_SEPOLIA_RPC_URL` for the wagmi transport. Both optional;
+  each falls back to viem's rate-limited public node when unset.
 - **Onchain calls** via wagmi/viem + the `@jaw.id/*` SDK (Base Sepolia only).
 - No database connections.
 - No state management libraries (no Redux, Zustand, Context API) beyond wagmi/react-query.

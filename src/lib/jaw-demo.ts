@@ -26,6 +26,14 @@ export const FUNDER_FLOOR_USDC = "1";
 // enough to run the demo, so there's no need to spend more treasury funds.
 export const ALREADY_FUNDED_USDC = "0.2";
 
+// Base Sepolia RPC the browser's wagmi reads use (USDC balance polling in the
+// hero demo). Distinct from the server-only BASE_SEPOLIA_RPC_URL that /api/fund
+// uses — this one is bundled into the client, so use a public or
+// domain-restricted read endpoint. Falls back to viem's chain default
+// (https://sepolia.base.org), which rate-limits aggressively.
+export const BASE_SEPOLIA_RPC_URL =
+  process.env.NEXT_PUBLIC_BASE_SEPOLIA_RPC_URL ?? "";
+
 export const JAW_API_KEY = process.env.NEXT_PUBLIC_JAW_API_KEY ?? "";
 
 // ENS domain under which JAW issues a subname for each connected account

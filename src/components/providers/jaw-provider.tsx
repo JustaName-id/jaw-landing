@@ -6,7 +6,12 @@ import { baseSepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { jaw } from "@jaw.id/wagmi";
 import { Mode } from "@jaw.id/core";
-import { CHAIN_ID, JAW_API_KEY, JAW_ENS } from "@/lib/jaw-demo";
+import {
+  BASE_SEPOLIA_RPC_URL,
+  CHAIN_ID,
+  JAW_API_KEY,
+  JAW_ENS,
+} from "@/lib/jaw-demo";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +36,9 @@ const buildConfig = () =>
       }),
     ],
     transports: {
-      [baseSepolia.id]: http(),
+      // Empty string falls through to viem's chain default, so an unset env var
+      // preserves the previous behavior.
+      [baseSepolia.id]: http(BASE_SEPOLIA_RPC_URL),
     },
   });
 
